@@ -2,8 +2,11 @@
 
 VR-Visitas 1.5a para WordPress 2.0 hasta 2.2.3
 ==============================================
-Por: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
-
+Author: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
+Tags: visits, stats, counter
+Requires at least: 2.0.x
+Tested up to: 2.2.3
+Stable tag: 1.4
 
 
 FUNCIONALIDAD
