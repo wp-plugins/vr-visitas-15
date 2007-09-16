@@ -2,8 +2,11 @@
 
 VR-Visitas 1.6 para WordPress 2.3
 ==============================================
-Por: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
-
+Author: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
+Tags: visits, stats, counter
+Requires at least: 2.3.x
+Tested up to: 2.3
+Stable tag: 1.6
 
 
 FUNCIONALIDAD
