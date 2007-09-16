@@ -2,7 +2,7 @@
 /*
 Plugin Name: VR-Visitas
 Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
-Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght.
+Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyright.
 Version: 1.4 (30/09/2006)
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
