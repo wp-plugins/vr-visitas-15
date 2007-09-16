@@ -1,5 +1,5 @@
 <?php
-/* Version: 1.3 (25/09/2006) */
+/* Version: 1.6 (16/09/2007) */
 
 $sel_lang = get_option('vr_lang');
 
