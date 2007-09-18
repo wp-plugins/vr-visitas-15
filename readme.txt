@@ -54,7 +54,7 @@ Versión 1.0 (28/08/2006)
 
 INSTALACIÓN
 -----------
-1. - Descomprimir los archivos en la carpeta: wp-content/visitas/
+1. - Descomprimir los archivos en la carpeta: wp-content/plugins/visitas/
 2. - Activar el plugin en el Panel de Administración de WordPress.
 3. - En el panel de adeministarción Visitas/Opciones, actualizar los valores iniciales.
 4. - Seguir las instrucciones de uso en COMO USARLO.
@@ -63,7 +63,7 @@ INSTALACIÓN
 ACTUALIZACIÓN
 -------------
 1. - Desactivar el plugin en el Panel de Administración de WordPress.
-2. - Descomprimir y sobreescribir los archivos en la carpeta: wp-content/visitas/
+2. - Descomprimir y sobreescribir los archivos en la carpeta: wp-content/plugins/visitas/
 3. - Activar nuevamente el plugin en el Panel de Administración de WordPress.
 
 
