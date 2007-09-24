@@ -1,7 +1,4 @@
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-
-VR-Visitas 1.6 para WordPress 2.3
-==============================================
+=== VR-Visitas 1.6 para WordPress 2.3 ===
 Author: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.3.x
@@ -9,6 +6,7 @@ Tested up to: 2.3
 Stable tag: 1.6
 
 
+== Description ==
 FUNCIONALIDAD
 -------------
 - Al instalar el plugin, se crean dos bases de datos vr_visitas y vr_spam que te permiten llevar
@@ -19,6 +17,7 @@ FUNCIONALIDAD
   la base de datos.
 
 
+== Changelog ==
 CHANGELOG
 ---------
 Versión 1.6 (16/09/2007) 
@@ -73,6 +72,7 @@ Versión 1.0 (28/08/2006)
 	Se ha verificado el uso en WordPress a partir de la versión 2.03, NO en versiones anteriores.
 
 
+== Installation ==
 INSTALACIÓN
 -----------
 1. - Descomprimir los archivos en la carpeta: wp-content/plugins/visitas/
@@ -81,6 +81,7 @@ INSTALACIÓN
 4. - Seguir las instrucciones de uso en COMO USARLO.
 
 
+== Update ==
 ACTUALIZACIÓN
 -------------
 1. - Desactivar el plugin en el Panel de Administración de WordPress.
@@ -88,6 +89,7 @@ ACTUALIZACIÓN
 3. - Activar nuevamente el plugin en el Panel de Administración de WordPress.
 
 
+== How to use ==
 COMO USARLO
 -----------
 Dentro del menú de Administración de WordPress, se instala una nueva opción: Visitas,
@@ -117,6 +119,3 @@ Resultado => © YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - Ú
 El fichero actualizado.html, contiene un webbot que se actualiza cada vez que se guarda el archivo;
 este webbot almacena la fecha de actualización del fichero que se utiliza para mostrar la fecha de 
 actualización de tu página.
-
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-//end//
