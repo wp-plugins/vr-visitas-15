@@ -1,5 +1,5 @@
 === VR-Visitas 1.6 para WordPress 2.3 ===
-Author: Vicenç Ruiz http://www.vruiz.net (webmaster@vruiz.net)
+Author: Vicen&ccedil; Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.3.x
 Tested up to: 2.3
@@ -7,115 +7,106 @@ Stable tag: 1.6
 
 
 == Description ==
-FUNCIONALIDAD
--------------
+
 - Al instalar el plugin, se crean dos bases de datos vr_visitas y vr_spam que te permiten llevar
-  un registro de las visitas a tu página.
-- Los resultados se muestran como: Visitas totales y Últimas 24 horas.
-- Tambien muestra datos del Copyright del autor y la fecha de actualización de la página.
-- A traves del panel de administración puedes consultar unas sencillas estadísticas y gestionar
+  un registro de las visitas a tu p&aacute;gina.
+- Los resultados se muestran como: Visitas totales y &uacute;ltimas 24 horas.
+- Tambien muestra datos del Copyright del autor y la fecha de actualizaci&oacute;n de la p&aacute;gina.
+- A traves del panel de administraci&oacute;n puedes consultar unas sencillas estad&iacute;sticas y gestionar
   la base de datos.
 
 
 == Changelog ==
-CHANGELOG
----------
-Versión 1.6 (16/09/2007) 
+
+Versi&oacute;n 1.6 (16/09/2007) 
  - Actualizado para compatibilidad con WordPress 2.3.x.
   
-Versión 1.5a (16/09/2007) 
- - Ahora, antes de borrar las entradas de SPAM, comprueba si Akismet está activo y te avisa,
+Versi&oacute;n 1.5a (16/09/2007) 
+ - Ahora, antes de borrar las entradas de SPAM, comprueba si Akismet est&aacute; activo y te avisa,
    si tienes comentarios marcados como SPAM para que los borres usando Akismet.
-   Si no está activo, los elimina directamente.
+   Si no est&aacute; activo, los elimina directamente.
   
-Versión 1.5 (05/09/2007) 
- - No es una actualización, pero se ha modificado el fichero visitas_lang.php para incluir
-   la traducción al italiano de Mariachiara Pezzotti. 
-   Ahora la opción para cambio de idioma es (es [Spanish], en [English], it [Italiano]). 
+Versi&oacute;n 1.5 (05/09/2007) 
+ - No es una actualizaci&oacute;n, pero se ha modificado el fichero visitas_lang.php para incluir
+   la traducci&oacute;n al italiano de Mariachiara Pezzotti. 
+   Ahora la opci&oacute;n para cambio de idioma es (es [Spanish], en [English], it [Italiano]). 
    
-Versión 1.5 (02/10/2006)
- - Añadida una nueva opción que delimita el número de registros guardados.
-   Al borrar entradas de la tabla, se eliminarán también los registros antiguos, evitando así
+Versi&oacute;n 1.5 (02/10/2006)
+ - Añadida una nueva opci&oacute;n que delimita el n&uacute;mero de registros guardados.
+   Al borrar entradas de la tabla, se eliminar&aacute;n tambi&eacute;n los registros antiguos, evitando as&iacute;
    que la tabla crezca indefinidamente.
 
-Versión 1.4 (30/09/2006)
- - Corregido un error al mostrar los listados de visitas y estadísticas.
+Versi&oacute;n 1.4 (30/09/2006)
+ - Corregido un error al mostrar los listados de visitas y estad&iacute;sticas.
    Ahora muestra un mensaje de alerta cuando no hay registros para mostrar.
  - Actualizado el fichero visitas_lang con los nuevos mensajes.
- - Añadidos 2 nuevos resúmenes de estadísticas: Por cadena de Búsqueda y por Host.
-   También están delimitados por las correspondientes opciones.
-   La tabla vr_visitas de la base de datos se actualiza automáticamente al reiniciar el plugin con
+ - Añadidos 2 nuevos res&uacute;menes de estad&iacute;sticas: Por cadena de B&uacute;squeda y por Host.
+   Tambi&eacute;n est&aacute;n delimitados por las correspondientes opciones.
+   La tabla vr_visitas de la base de datos se actualiza autom&aacute;ticamente al reiniciar el plugin con
    dos nuevos campos: 'search' VARCHAR(100) NOT NULL y 'host' VARCHAR(100) NOT NULL
- - Nueva depuración del código, simplificando algunas funciones.
+ - Nueva depuraci&oacute;n del c&oacute;digo, simplificando algunas funciones.
  
-Versión 1.3 (25/09/2006)
+Versi&oacute;n 1.3 (25/09/2006)
  - Corregido un error al mostrar el listado de visitas. Ahora limitado a 1000 registros.
  - Actualizado el fichero visitas_lang con los nuevos mensajes.
- - Ahora muestra el promedio de visitas por día en el listado de visitas.
+ - Ahora muestra el promedio de visitas por d&iacute;a en el listado de visitas.
  
-Versión 1.2 (23/09/2006)
- - Añadida nueva opción que permite mostrar sólo el Copyright, sólo el Contador o ambos; se elimina
-   la necesidad de la función vr_contador() que se mantiene sólo a efectos de compatibilidad.
- - Ahora incluye la opción de mostrar un "widget" en la barra lateral si el tema permite esta función.
-   Se activa automáticamente al instalar el plugin. Sólo tendrás que arrastrarlo dentro de la barra en
-   el panel de administración para que funcione.
+Versi&oacute;n 1.2 (23/09/2006)
+ - Añadida nueva opci&oacute;n que permite mostrar s&oacute;lo el Copyright, s&oacute;lo el Contador o ambos; se elimina
+   la necesidad de la funci&oacute;n vr_contador() que se mantiene s&oacute;lo a efectos de compatibilidad.
+ - Ahora incluye la opci&oacute;n de mostrar un "widget" en la barra lateral si el tema permite esta funci&oacute;n.
+   Se activa autom&aacute;ticamente al instalar el plugin. S&oacute;lo tendr&aacute;s que arrastrarlo dentro de la barra en
+   el panel de administraci&oacute;n para que funcione.
  - Cambiado el tipo de valor del campo 'idSpam' que mostraba un error cuando se superaban los 127
    registros en la tabla. Ahora es: int(6) NOT NULL auto_increment.
 
-Versión 1.1 (02/09/2006)
- - Añadida opción para cambio de idioma (es [Spanish], en [English])
- - Añadida opción para establecer manualmente la fecha de actualización.
- - Optimización del código.
+Versi&oacute;n 1.1 (02/09/2006)
+ - Añadida opci&oacute;n para cambio de idioma (es [Spanish], en [English])
+ - Añadida opci&oacute;n para establecer manualmente la fecha de actualizaci&oacute;n.
+ - Optimizaci&oacute;n del c&oacute;digo.
 
-Versión 1.0 (28/08/2006)
+Versi&oacute;n 1.0 (28/08/2006)
  -	First release
-	Se ha verificado el uso en WordPress a partir de la versión 2.03, NO en versiones anteriores.
+	Se ha verificado el uso en WordPress a partir de la versi&oacute;n 2.03, NO en versiones anteriores.
 
 
 == Installation ==
-INSTALACIÓN
------------
-1. - Descomprimir los archivos en la carpeta: wp-content/plugins/visitas/
-2. - Activar el plugin en el Panel de Administración de WordPress.
-3. - En el panel de adeministarción Visitas/Opciones, actualizar los valores iniciales.
-4. - Seguir las instrucciones de uso en COMO USARLO.
+
+- Descomprimir los archivos en la carpeta: wp-content/plugins/visitas/
+- Activar el plugin en el Panel de Administraci&oacute;n de WordPress.
+- En el panel de adeministarci&oacute;n Visitas/Opciones, actualizar los valores iniciales.
+- Seguir las instrucciones de uso en COMO USARLO.
 
 
 == Update ==
-ACTUALIZACIÓN
--------------
-1. - Desactivar el plugin en el Panel de Administración de WordPress.
-2. - Descomprimir y sobreescribir los archivos en la carpeta: wp-content/plugins/visitas/
-3. - Activar nuevamente el plugin en el Panel de Administración de WordPress.
+
+- Desactivar el plugin en el Panel de Administraci&oacute;n de WordPress.
+- Descomprimir y sobreescribir los archivos en la carpeta: wp-content/plugins/visitas/
+- Activar nuevamente el plugin en el Panel de Administraci&oacute;n de WordPress.
 
 
 == How to use ==
-COMO USARLO
------------
-Dentro del menú de Administración de WordPress, se instala una nueva opción: Visitas,
+
+Dentro del men&uacute; de Administraci&oacute;n de WordPress, se instala una nueva opci&oacute;n: Visitas,
 con distintas ventanas para el manejo del plugin.
 
-- Visitas:			Muestra una lista de las últimas visitas registradas.
-- Añadir filtro:	Permite añadir palabras que se usarán como filtro para borrar entradas
-					de la base de datos.
-- Borrar filtro:	Borra las palabras de la tabla de filtros.
-- Borrar SPAM:		Elimina los registros de la base de datos correspondientes a las visitas de Robots
-					y de los referentes que coincidan con tu lista de filtros.
-- Estadísticas:		Muestra un resumen (en %) de las entradas registradas: por navegador,
-					por sistema operativo, por número de visitas y por referente.
-- Opciones:			Actualiza los valores de las opciones usadas en el plugin.
-					Se explican en la propia página.
+- Visitas: Muestra una lista de las &uacute;ltimas visitas registradas.
+- Añadir filtro: Permite añadir palabras que se usar&aacute;n como filtro para borrar entradas de la base de datos.
+- Borrar filtro: Borra las palabras de la tabla de filtros.
+- Borrar SPAM: Elimina los registros de la base de datos correspondientes a las visitas de Robots y de los referentes que coincidan con tu lista de filtros.
+- Estad&iacute;sticas: Muestra un resumen (en %) de las entradas registradas: por navegador, por sistema operativo, por n&uacute;mero de visitas y por referente.
+- Opciones: Actualiza los valores de las opciones usadas en el plugin. Se explican en la propia p&aacute;gina.
 
-Para comenzar a registrar las visitas inserta el siguiente código en la plantilla footer.php
-dentro del <div id="footer"> [ ... ] </div> como se indica a continuación:
+Para comenzar a registrar las visitas inserta el siguiente c&oacute;digo en la plantilla footer.php
+dentro del &gt;div id="footer"&lt; [ ... ] &gt;/div&lt; como se indica a continuaci&oacute;n:
 
-		<?php if (function_exists('vr_copyright')) { vr_copyright(); } ?>
+&gt;?php if (function_exists('vr_copyright')) { vr_copyright(); } ?&lt;
 		
-Resultado => © YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - Últimas 24 horas: 1
+Resultado => © YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - &uacute;ltimas 24 horas: 1
 
-	* Puedes seleccionar la información mostrada a través de una nueva opción.
-	* También puedes ver los resultados en la barra lateral usando el widget 'visitas' si tu tema lo permite.
+ * Puedes seleccionar la informaci&oacute;n mostrada a trav&eacute;s de una nueva opci&oacute;n.
+ * Tambi&eacute;n puedes ver los resultados en la barra lateral usando el widget 'visitas' si tu tema lo permite.
 	
 El fichero actualizado.html, contiene un webbot que se actualiza cada vez que se guarda el archivo;
-este webbot almacena la fecha de actualización del fichero que se utiliza para mostrar la fecha de 
-actualización de tu página.
+este webbot almacena la fecha de actualizaci&oacute;n del fichero que se utiliza para mostrar la fecha de 
+actualizaci&oacute;n de tu p&aacute;gina.
