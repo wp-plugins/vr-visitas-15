@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: VR-Visitas
-Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
-Description: Ver.1.6 (14/09/2007) - Compatible con WordPress 2.3.x - Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyright.
+Plugin URI: http://www.vruiz.net/2007/09/16/vr-visitas-2/
+Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyright.<br />Allow you to take a record of the visits to your page and it shows information of the author Copyright and the update date of page. 
 Version: 1.6
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
