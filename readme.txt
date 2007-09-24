@@ -32,7 +32,7 @@ Versi&oacute;n 1.5 (05/09/2007)
    Ahora la opci&oacute;n para cambio de idioma es (es [Spanish], en [English], it [Italiano]). 
    
 Versi&oacute;n 1.5 (02/10/2006)
- - Añadida una nueva opci&oacute;n que delimita el n&uacute;mero de registros guardados.
+ - A&ntilde;adida una nueva opci&oacute;n que delimita el n&uacute;mero de registros guardados.
    Al borrar entradas de la tabla, se eliminar&aacute;n tambi&eacute;n los registros antiguos, evitando as&iacute;
    que la tabla crezca indefinidamente.
 
@@ -40,7 +40,7 @@ Versi&oacute;n 1.4 (30/09/2006)
  - Corregido un error al mostrar los listados de visitas y estad&iacute;sticas.
    Ahora muestra un mensaje de alerta cuando no hay registros para mostrar.
  - Actualizado el fichero visitas_lang con los nuevos mensajes.
- - Añadidos 2 nuevos res&uacute;menes de estad&iacute;sticas: Por cadena de B&uacute;squeda y por Host.
+ - A&ntilde;adidos 2 nuevos res&uacute;menes de estad&iacute;sticas: Por cadena de B&uacute;squeda y por Host.
    Tambi&eacute;n est&aacute;n delimitados por las correspondientes opciones.
    La tabla vr_visitas de la base de datos se actualiza autom&aacute;ticamente al reiniciar el plugin con
    dos nuevos campos: 'search' VARCHAR(100) NOT NULL y 'host' VARCHAR(100) NOT NULL
@@ -52,7 +52,7 @@ Versi&oacute;n 1.3 (25/09/2006)
  - Ahora muestra el promedio de visitas por d&iacute;a en el listado de visitas.
  
 Versi&oacute;n 1.2 (23/09/2006)
- - Añadida nueva opci&oacute;n que permite mostrar s&oacute;lo el Copyright, s&oacute;lo el Contador o ambos; se elimina
+ - A&ntilde;adida nueva opci&oacute;n que permite mostrar s&oacute;lo el Copyright, s&oacute;lo el Contador o ambos; se elimina
    la necesidad de la funci&oacute;n vr_contador() que se mantiene s&oacute;lo a efectos de compatibilidad.
  - Ahora incluye la opci&oacute;n de mostrar un "widget" en la barra lateral si el tema permite esta funci&oacute;n.
    Se activa autom&aacute;ticamente al instalar el plugin. S&oacute;lo tendr&aacute;s que arrastrarlo dentro de la barra en
@@ -61,8 +61,8 @@ Versi&oacute;n 1.2 (23/09/2006)
    registros en la tabla. Ahora es: int(6) NOT NULL auto_increment.
 
 Versi&oacute;n 1.1 (02/09/2006)
- - Añadida opci&oacute;n para cambio de idioma (es [Spanish], en [English])
- - Añadida opci&oacute;n para establecer manualmente la fecha de actualizaci&oacute;n.
+ - A&ntilde;adida opci&oacute;n para cambio de idioma (es [Spanish], en [English])
+ - A&ntilde;adida opci&oacute;n para establecer manualmente la fecha de actualizaci&oacute;n.
  - Optimizaci&oacute;n del c&oacute;digo.
 
 Versi&oacute;n 1.0 (28/08/2006)
@@ -91,18 +91,18 @@ Dentro del men&uacute; de Administraci&oacute;n de WordPress, se instala una nue
 con distintas ventanas para el manejo del plugin.
 
 - Visitas: Muestra una lista de las &uacute;ltimas visitas registradas.
-- Añadir filtro: Permite añadir palabras que se usar&aacute;n como filtro para borrar entradas de la base de datos.
+- A&ntilde;adir filtro: Permite a&ntilde;adir palabras que se usar&aacute;n como filtro para borrar entradas de la base de datos.
 - Borrar filtro: Borra las palabras de la tabla de filtros.
 - Borrar SPAM: Elimina los registros de la base de datos correspondientes a las visitas de Robots y de los referentes que coincidan con tu lista de filtros.
 - Estad&iacute;sticas: Muestra un resumen (en %) de las entradas registradas: por navegador, por sistema operativo, por n&uacute;mero de visitas y por referente.
 - Opciones: Actualiza los valores de las opciones usadas en el plugin. Se explican en la propia p&aacute;gina.
 
 Para comenzar a registrar las visitas inserta el siguiente c&oacute;digo en la plantilla footer.php
-dentro del &gt;div id="footer"&lt; [ ... ] &gt;/div&lt; como se indica a continuaci&oacute;n:
+dentro del &lt;div id="footer"&gt; [ ... ] &lt;/div&gt; como se indica a continuaci&oacute;n:
 
-&gt;?php if (function_exists('vr_copyright')) { vr_copyright(); } ?&lt;
+&lt;?php if (function_exists('vr_copyright')) { vr_copyright(); } ?&gt;
 		
-Resultado => © YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - &uacute;ltimas 24 horas: 1
+Resultado => &copy; YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - &uacute;ltimas 24 horas: 1
 
  * Puedes seleccionar la informaci&oacute;n mostrada a trav&eacute;s de una nueva opci&oacute;n.
  * Tambi&eacute;n puedes ver los resultados en la barra lateral usando el widget 'visitas' si tu tema lo permite.
