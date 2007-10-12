@@ -132,7 +132,7 @@ do_action('vr_activar');
 		<h2><?php echo $vr_lang['opt_frm_title']; ?></h2>
 		<fieldset class="options">
 			<legend><?php echo $vr_lang['opt_frm_sub']; ?></legend><br />
-			<form method="post" name="validar_opciones" action="visitas_copia(1).php?page=options">
+			<form method="post" name="validar_opciones" action="?page=options">
 				<input name="validar" type="hidden" value="opciones" />
 				<table width="100%" cellspacing="3" cellpadding="3">
 					<tr>
@@ -289,7 +289,7 @@ function vr_words() {
 			<table width="100%" cellspacing="3" cellpadding="3">
 				<tr>
 					<td>
-						<form method='post' action='visitas_copia(1).php?page=words'>
+						<form method='post' action='?page=words'>
 							<input name="validar" type="hidden" value="palabra" />
 							<table cellspacing="3" cellpadding="3">
 								<tr>
@@ -301,7 +301,7 @@ function vr_words() {
 						</form>
 					</td>
 					<td style='text-align: right'>
-						<form method='post' action='visitas_copia(1).php?page=borrar'>
+						<form method='post' action='?page=borrar'>
 							<table cellspacing="3" cellpadding="3">
 							<tr>
 								<td style='text-align: right'><input type="submit" value="<?php echo $vr_lang['add_btn_spm']; ?>" /></td>
@@ -840,7 +840,7 @@ function vr_filtro() {
 		<h2><?php echo $vr_lang['del_frm_title']; ?></h2>
 		<fieldset class="options">
 			<legend><?php echo $vr_lang['del_frm_sub']; ?></legend><br />
-			<form name="delfilter" id="delfilter" method='post' action='visitas_copia(1).php?page=filtro'>
+			<form name="delfilter" id="delfilter" method='post' action='?page=filtro'>
 				<input name="validar" type="hidden" value="spam" />
 				<table border="0" width="100%">
 					<tr>
