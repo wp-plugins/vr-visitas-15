@@ -1,5 +1,5 @@
 <?php
-/* Version: 1.6 (16/09/2007) */
+/* Version: 1.3 (25/09/2006) */
 
 $sel_lang = get_option('vr_lang');
 
@@ -39,6 +39,7 @@ $vr_lang['opt_lbl_lang'] 		= "Language:";
 $vr_lang['opt_lbl_display'] 	= "Display:";
 $vr_lang['opt_lbl_visits'] 		= "Number of visits:";
 $vr_lang['opt_lbl_datelimit'] 	= "Data base limit:";
+$vr_lang['opt_lbl_cron'] 		= "Delete SPAM from data base:";
 
 $vr_lang['opt_msg_old'] 		= "when erasing the entrances of Robots, Spam, etc., the number of accumulated Hits is recorded";
 $vr_lang['opt_msg_self_IP'] 	= "visits from this IP will be excluded";
@@ -55,6 +56,7 @@ $vr_lang['opt_msg_incom'] 		= "Minimum number of hits to show results in stats p
 $vr_lang['opt_msg_search'] 		= "Minimum number of hits to show results in stats page (for Search string visits)";
 $vr_lang['opt_msg_host'] 		= "Minimum number of hits to show results in stats page (for Host visits)";
 $vr_lang['opt_msg_datelimit'] 	= "Maximum days to preserve hits in data base. Old entries are deleted when cleaning SPAM.";
+$vr_lang['opt_msg_cron'] 		= "Activates the use of the function wp_cron in order to delete the Spam registries from the data base.<br />If you choose the option 'Manually', wp_cron remains inactive and you need use 'delete Spam'";
 
 $vr_lang['opt_limit_all']		= "ALL";
 $vr_lang['opt_limit_day']		= "1 day";
@@ -63,6 +65,10 @@ $vr_lang['opt_limit_month']		= "1 month";
 $vr_lang['opt_limit_three']		= "3 months";
 $vr_lang['opt_limit_six']		= "6 months";
 $vr_lang['opt_limit_year']		= "1 year";
+
+$vr_lang['opt_cron_hourly']		= "Hourly";
+$vr_lang['opt_cron_daily']		= "Daily";
+$vr_lang['opt_cron_none']		= "Manually";
 
 $vr_lang['opt_btn_submit']		= "Update";
 
@@ -174,6 +180,7 @@ $vr_lang['opt_lbl_lang'] 		= "Lingua:";
 $vr_lang['opt_lbl_display'] 	= "Mostra:";
 $vr_lang['opt_lbl_visits'] 		= "Numero di visite:";
 $vr_lang['opt_lbl_datelimit'] 	= "Data di base:";
+$vr_lang['opt_lbl_cron'] 		= "Cancella SPAM di base:";
 
 $vr_lang['opt_msg_old'] 		= "quando si cancellano le visite di Robot, Spam etc... il numero accumulato delle Hits viene registrato.";
 $vr_lang['opt_msg_self_IP'] 	= "Visite dagli Ip esclusi";
@@ -190,6 +197,7 @@ $vr_lang['opt_msg_incom'] 		= "Numero minimo di hits da mostrare nella pagina de
 $vr_lang['opt_msg_search'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(per le  visite da stringhe di ricerca)";
 $vr_lang['opt_msg_host'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(per le visite da host)";
 $vr_lang['opt_msg_datelimit'] 	= "Numero massimo di giorni per mantenere le Hits sul data base. I vecchi inserimenti verranno cancellati insieme allo SPAM.";
+$vr_lang['opt_msg_cron'] 		= "Attiva l'uso dalla funzione wp_cron per cancellare le registrazioni dello Spam di base.<br/>L'opzione 'manualmente', inattiva il wp_cron ed avete bisogno dell'uso de 'Cancella SPAM'.";
 
 $vr_lang['opt_limit_all']		= "Tutti";
 $vr_lang['opt_limit_day']		= "1 giorno";
@@ -198,6 +206,10 @@ $vr_lang['opt_limit_month']		= "1 mese";
 $vr_lang['opt_limit_three']		= "3 mesi";
 $vr_lang['opt_limit_six']		= "6 mesi";
 $vr_lang['opt_limit_year']		= "1 anno";
+
+$vr_lang['opt_cron_hourly']		= "Ogni ora";
+$vr_lang['opt_cron_daily']		= "Giornaliere";
+$vr_lang['opt_cron_none']		= "Manualmente";
 
 $vr_lang['opt_btn_submit']		= "Aggiorna";
 
@@ -309,6 +321,7 @@ $vr_lang['opt_lbl_lang'] 		= "Idioma:";
 $vr_lang['opt_lbl_display'] 	= "Mostrar:";
 $vr_lang['opt_lbl_visits'] 		= "N&uacute;mero de visitas:";
 $vr_lang['opt_lbl_datelimit'] 	= "L&iacute;mite de la base de datos:";
+$vr_lang['opt_lbl_cron'] 		= "Borrar SPAM de la base de datos:";
 
 $vr_lang['opt_msg_old'] 		= "al borrar las entradas de Robots, SPAM, etc., se guarda el n&uacute;mero de Hits acumulados";
 $vr_lang['opt_msg_self_IP'] 	= "se excluir&aacute;n las visitas desde esta direcci&oacute;n IP";
@@ -324,7 +337,8 @@ $vr_lang['opt_msg_numof'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostr
 $vr_lang['opt_msg_incom'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Referente)";
 $vr_lang['opt_msg_search'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Cadena de B&uacute;squeda)";
 $vr_lang['opt_msg_host'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Anfitri&oacute;n (Host)";
-$vr_lang['opt_msg_datelimit'] 	= "N&uacute;mero m&aacute;ximo de d&iacute;as para conservar los registros en la base de datos. Las entradas antiguas se borran al limpiar el SPAM.";
+$vr_lang['opt_msg_datelimit'] 	= "N&uacute;mero m&aacute;ximo de d&iacute;as para conservar los registros en la base de datos.<br />Las entradas antiguas se borran al limpiar el SPAM.";
+$vr_lang['opt_msg_cron'] 		= "Activa el uso de la funci&oacute;n <strong>wp_cron</strong> para eliminar los registros de SPAM de la bas de datos.<br />Si eliges 'manualmente' se desactiva <strong>wp_cron</strong> y tendr&aacute;s que usar 'borrar SPAM'.";
 
 $vr_lang['opt_limit_all']		= "TODAS";
 $vr_lang['opt_limit_day']		= "1 d&iacute;a";
@@ -333,6 +347,10 @@ $vr_lang['opt_limit_month']		= "1 mes";
 $vr_lang['opt_limit_three']		= "3 meses";
 $vr_lang['opt_limit_six']		= "6 meses";
 $vr_lang['opt_limit_year']		= "1 a&ntilde;o";
+
+$vr_lang['opt_cron_hourly']		= "Cada hora";
+$vr_lang['opt_cron_daily']		= "Cada d&iacute;a";
+$vr_lang['opt_cron_none']		= "Manualmente";
 
 $vr_lang['opt_btn_submit']		= "Actualizar";
 

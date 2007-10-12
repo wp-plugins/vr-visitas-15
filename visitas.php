@@ -1,55 +1,47 @@
 <?php
 /*
 Plugin Name: VR-Visitas
-Plugin URI: http://www.vruiz.net/2007/09/16/vr-visitas-2/
-Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyright y la fecha de actualizaci&oacute;n de tu p&aacute;gina.<br />Allows you to take a record of the visits to your page and shows it with the author Copyright and the update date of page.
-Version: 1.6
+Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
+Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght.
+Version: 1.7
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
 */
 
-/*  Copyright 2006  Vicen&ccedil; Ruiz (email : webmaster@vruiz.net) */
+/*  Copyright 2006  Vicen&ccedil; Ruiz (visitas : webmaster@vruiz.net) */
 
-// Crea la Bases de datos para el contador de visitas y registro de filtros
-// ------------------------------------------------------------------------
+### Table Names
+$wpdb->visitas = $table_prefix . 'vr_visitas';
+$wpdb->spam = $table_prefix . 'vr_spam';
 
-add_action('activate_visitas/visitas.php','vr_install');
-
-function vr_install () {
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	global $table_prefix, $wpdb;
-
-	$tbl_visitas = $table_prefix."vr_visitas";
-	if($wpdb->get_var("show tables like '$tbl_visitas'") != $tbl_visitas) {
-		$sql = "CREATE TABLE $tbl_visitas (
-			ip varchar(15) NOT NULL default '',
-			fecha int(14) unsigned NOT NULL default '0',
-			referer varchar(255) NOT NULL default '',
-			browser varchar(100) NOT NULL default '',
-			os varchar(100) NOT NULL default '',
-			search varchar(100) NOT NULL default '',
-			host VARCHAR(100) NOT NULL default '',
-			KEY ip (ip)
-		);";
-		dbDelta($sql);
+### Function: Create Tables
+add_action('activate_visitas/visitas.php', 'create_visitas_table');
+function create_visitas_table() {
+	global $wpdb;
+	if(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
+		include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
+	} elseif(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
+		include_once(ABSPATH.'/wp-admin/includes/upgrade.php');
 	} else {
-		$sql = "ALTER TABLE $tbl_visitas 
-			ADD search VARCHAR(100) NOT NULL, 
-			ADD host VARCHAR(100) NOT NULL
-		";
-		$wpdb->query($sql);
-	}		 
-
-	$tbl_spam = $table_prefix."vr_spam";
-	if($wpdb->get_var("show tables like '$tbl_spam'") != $tbl_spam) {
-		$sql = "CREATE TABLE $tbl_spam (
-			idSpam int(6) NOT NULL auto_increment,
-			palabra tinytext NOT NULL,
-			PRIMARY KEY  (idSpam)
-		);";
-		dbDelta($sql);
+		die('We have problem finding your \'/wp-admin/upgrade-functions.php\' and \'/wp-admin/includes/upgrade.php\'');
 	}
+	$create_table = "CREATE TABLE $wpdb->visitas (".
+							"ip varchar(15) NOT NULL default '',".
+							"fecha int(14) unsigned NOT NULL default '0',".
+							"referer varchar(255) NOT NULL default '',".
+							"browser varchar(100) NOT NULL default '',".
+							"os varchar(100) NOT NULL default '',".
+							"search varchar(100) NOT NULL default '',".
+							"host VARCHAR(100) NOT NULL default '',".
+							"KEY ip (ip));";
+	maybe_create_table($wpdb->visitas, $create_table);
+	$create_table = "CREATE TABLE $wpdb->spam (".
+							"idSpam int(6) NOT NULL auto_increment,".
+							"palabra tinytext NOT NULL,".
+							"PRIMARY KEY (idSpam));";
+	maybe_create_table($wpdb->spam, $create_table);
 
+	// Add In Options (16 Records)
 	add_option('vr_old', 0, 'Contador', 'yes');
 	add_option('vr_self_IP', "0.0.0.0", 'IP propia', 'yes'); // AQUI DEBES INDICAR TU IP //
 	add_option('vr_delay', 3600, 'Retardo', 'yes'); // EN SEGUNDOS
@@ -65,23 +57,29 @@ function vr_install () {
 	add_option('vr_search', "10", 'Search visits', 'yes'); // NUM
 	add_option('vr_host', "25", 'Host Visits', 'yes'); // NUM
 	add_option('vr_datelimit', "all", 'Database Time Limit', 'yes'); // NUM
+	add_option('vr_cron', "hourly", 'Cron Spam', 'yes'); // NUM
 }
 
 
+### This is the scheduling hook for our plugin that is triggered by cron
+function activar_cron() { 
+	$cronlimit = get_option('vr_cron');
+	$timestamp = wp_next_scheduled('visitas_cron');
+	wp_unschedule_event($timestamp, "visitas_cron");
+	if ($cronlimit != 'manual') {
+		wp_schedule_event(time()+30, $cronlimit, "visitas_cron");
+	}
+}
 
-// VR Menu - Crea los menus en el Panel de Administracion
-// ------------------------------------------------------
+register_activation_hook(__FILE__,'activar_cron');
+add_action('visitas_cron','borrarSpam');
+
+
+### Visitas Menu - Crea los menus en el Panel de Administracion
 require_once("visitas_lang.php");
 add_action('admin_menu', 'vr_menu');
 add_action('plugins_loaded', 'widget_visitas_init');
-
-if (function_exists('wp_cron_init')) {
-	add_action('wp_cron_daily', 'vr_cron_visitas');
-}
-
-function vr_cron_visitas() {
-		borrarSpam();
-}
+add_action('vr_activar', 'activar_cron');
 
 function vr_menu() {
 global $vr_lang;
@@ -99,10 +97,12 @@ global $vr_lang;
 
 
 
-// Actualiza las opciones a traves del panel de administracion de WordPress
-// ------------------------------------------------------------------------
+### Actualiza las opciones a traves del panel de administracion de WordPress
 function vr_options() {
 global $vr_lang;
+
+do_action('vr_activar');
+
 	if ($_POST["validar"] == "opciones") {
 		foreach($_POST as $key => $value) {
 			if ($value == "" ) $no .= "NO";
@@ -132,7 +132,7 @@ global $vr_lang;
 		<h2><?php echo $vr_lang['opt_frm_title']; ?></h2>
 		<fieldset class="options">
 			<legend><?php echo $vr_lang['opt_frm_sub']; ?></legend><br />
-			<form method="post" name="validar_opciones" action="?page=options">
+			<form method="post" name="validar_opciones" action="visitas_copia(1).php?page=options">
 				<input name="validar" type="hidden" value="opciones" />
 				<table width="100%" cellspacing="3" cellpadding="3">
 					<tr>
@@ -227,6 +227,27 @@ global $vr_lang;
 						<br />(<?php echo $vr_lang['opt_msg_datelimit']; ?>)</td>
 					</tr>
 					<tr>
+						<td style='text-align: left'><?php echo $vr_lang['opt_lbl_cron']; ?></td>
+						<td style='text-align: left'>
+						<select size="1" name="vr_cron">
+						<?php
+							$cron_limits = array(
+								'opt_cron_hourly' => "hourly",
+								'opt_cron_daily' => "daily",
+								'opt_cron_none' => "manual"
+							);
+							foreach($cron_limits as $caption => $value) {
+								if ($value != get_option('vr_cron')) {
+									echo '<option value="'.$value.'">'.$vr_lang[$caption].'</option>';
+								} else {
+									echo '<option selected="selected" value="'.$value.'">'.$vr_lang[$caption].'</option>';
+								}
+							}
+						?>
+						</select>
+						<br />(<?php echo $vr_lang['opt_msg_cron']; ?>)</td>
+					</tr>
+					<tr>
 						<td colspan="3" style='text-align: center'><input type="submit" value="<?php echo $vr_lang['opt_btn_submit']; ?>" name="" /></td>
 					</tr>
 				</table>
@@ -238,8 +259,7 @@ global $vr_lang;
 
 
 
-// Formulario para agregar filtros a la base de datos
-// --------------------------------------------------
+### Formulario para agregar filtros a la base de datos
 function vr_words() {
 	global $table_prefix, $wpdb, $vr_lang;
 	$tbl_spam = $table_prefix."vr_spam";
@@ -269,7 +289,7 @@ function vr_words() {
 			<table width="100%" cellspacing="3" cellpadding="3">
 				<tr>
 					<td>
-						<form method='post' action='?page=words'>
+						<form method='post' action='visitas_copia(1).php?page=words'>
 							<input name="validar" type="hidden" value="palabra" />
 							<table cellspacing="3" cellpadding="3">
 								<tr>
@@ -281,7 +301,7 @@ function vr_words() {
 						</form>
 					</td>
 					<td style='text-align: right'>
-						<form method='post' action='?page=borrar'>
+						<form method='post' action='visitas_copia(1).php?page=borrar'>
 							<table cellspacing="3" cellpadding="3">
 							<tr>
 								<td style='text-align: right'><input type="submit" value="<?php echo $vr_lang['add_btn_spm']; ?>" /></td>
@@ -297,8 +317,7 @@ function vr_words() {
 }
 
 
-// Borra de la base de datos las entradas que coincidan con las palabras de filtro
-// -------------------------------------------------------------------------------
+### Borra de la base de datos las entradas que coincidan con las palabras de filtro
 function vr_borrar() {
 global $vr_lang;
 ?>
@@ -380,8 +399,7 @@ function borrarSpam() {
 
 
 
-// Muestra las ultimas visitas registradas. El periodo se selecciona como una opcion
-// ---------------------------------------------------------------------------------
+### Muestra las ultimas visitas registradas. El periodo se selecciona como una opcion
 function vr_visitas() {
 	global $table_prefix, $wpdb, $vr_lang;
 	$tbl_visitas = $table_prefix."vr_visitas";
@@ -398,7 +416,7 @@ function vr_visitas() {
 			$promedio = ceil($registros/$dias);
 			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros
 			. $vr_lang['sta_frm_regs'] . " (" . $vr_lang['sta_frm_average'] . $promedio . ")</legend>";
-			if ($registros < 1001) {
+			if ($registros < 2001) {
 		?>
 		<table cellspacing="3" cellpadding="3" border="0" width="100%">
 			<tr>
@@ -430,8 +448,7 @@ function vr_visitas() {
 
 
 
-// Muestra diversas estadisticas de la base de datos
-// -------------------------------------------------
+### Muestra diversas estadisticas de la base de datos
 function vr_stats() {
 	global $table_prefix, $wpdb, $vr_lang;
 	$tbl_visitas = $table_prefix."vr_visitas";
@@ -529,8 +546,7 @@ function vr_stats() {
 <?php 
 }
 
-// Crea la lista de resultados para los cuadros de estadsticas
-// ------------------------------------------------------------
+### Crea la lista de resultados para los cuadros de estadsticas
 function vr_list_stats($query,$visitas,$col1,$col2,$col3) {
 	global $wpdb, $vr_lang;
 	
@@ -559,8 +575,7 @@ function vr_list_stats($query,$visitas,$col1,$col2,$col3) {
 }
 
 
-// Registra los datos del visitante - Basado en el script de Angel Ruiz
-// --------------------------------------------------------------------
+### Registra los datos del visitante - Basado en el script de Angel Ruiz
 function vr_userinfo() {
 	$ip = vr_GetIPAddress();
 	$browser = vr_GetBrowser($_SERVER['HTTP_USER_AGENT']);
@@ -721,8 +736,7 @@ function vr_search_imgs($url) {
 		return $q['imgurl'];
 }
 
-// Actualiza la Base de datos y cuenta el total de visitas (excluye la IP propia)
-// -------------------------------------------- Basado en el script de Angel Ruiz
+### Actualiza la Base de datos y cuenta el total de visitas (excluye la IP propia) - Basado en el script de Angel Ruiz
 function vr_usuarios_totales() {
 	global $table_prefix, $wpdb;
 	$tbl_visitas = $table_prefix."vr_visitas";
@@ -744,8 +758,7 @@ function vr_usuarios_totales() {
 
 
 
-// Selecciona el numero de usuarios dentro del limite (segundos) de la consulta
-// ----------------------------------------- Basado en el script de Angel Ruiz
+### Selecciona el numero de usuarios dentro del limite (segundos) de la consulta - Basado en el script de Angel Ruiz
 function vr_usuarios_limite ($limit) {
 	global $table_prefix, $wpdb;
 	$tbl_visitas = $table_prefix."vr_visitas";
@@ -758,8 +771,7 @@ function vr_usuarios_limite ($limit) {
 
 
 
-// Contadores de visitas - Basados en el script de Angel Ruiz
-// ----------------------------------------------------------
+### Contadores de visitas - Basados en el script de Angel Ruiz
 function vr_v_totales() {
 	$valor = get_option('vr_old');
 	$totales = $valor + vr_usuarios_totales();
@@ -773,8 +785,7 @@ function vr_v_diarios() {
 
 
 
-// Elimina palabras (filtros) de la base de datos
-// ----------------------------------------------
+### Elimina palabras (filtros) de la base de datos
 function vr_filtro() {
 	global $table_prefix, $wpdb, $vr_lang;
 	$tbl_spam = $table_prefix."vr_spam";
@@ -829,7 +840,7 @@ function vr_filtro() {
 		<h2><?php echo $vr_lang['del_frm_title']; ?></h2>
 		<fieldset class="options">
 			<legend><?php echo $vr_lang['del_frm_sub']; ?></legend><br />
-			<form name="delfilter" id="delfilter" method='post' action='?page=filtro'>
+			<form name="delfilter" id="delfilter" method='post' action='visitas_copia(1).php?page=filtro'>
 				<input name="validar" type="hidden" value="spam" />
 				<table border="0" width="100%">
 					<tr>
@@ -867,8 +878,7 @@ function vr_filtro() {
 <?php
 }
 
-// Crea la lista a mostrar en el formulario de borrar filtros
-// ----------------------------------------------------------
+### Crea la lista a mostrar en el formulario de borrar filtros
 function vr_spam_list($rslist) {
 	// Generates the filter list to manage it
 	$list_spam ="";
@@ -880,10 +890,8 @@ function vr_spam_list($rslist) {
 }
 
 
-// Muestra los datos de Copyright y las estadisticas de visitantes.
-// Debes actualizar el fichero actualizado.html, cada vez que hagas cambios, 
-// para mostrar la fecha correcta.
-// ------------------------------------------------------------------------------------
+### Muestra los datos de Copyright y las estadisticas de visitantes.
+### Debes actualizar el fichero actualizado.html, cada vez que hagas cambios, para mostrar la fecha correcta.
 function vr_copyright($init="",$sep="",$end="") {
 	// Generates the string $copyrigtt based on user options
 	
@@ -919,8 +927,7 @@ function vr_copyright($init="",$sep="",$end="") {
 	echo $copyright;
 }
 
-// Muestra solo los datos de las visitas recibidas
-// -----------------------------------------------
+### Muestra solo los datos de las visitas recibidas
 function vr_contador() {
 	// Obsolete function. Now select options trough admin panel.
 	vr_copyright();
