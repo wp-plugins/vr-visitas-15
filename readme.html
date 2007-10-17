@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>VR-Visitas 1.6 Readme</title>
+	<style type="text/css" media="screen">
+		/* Default Style */
+		body {
+			font-family: Verdana, Tahoma, Arial, sans-serif;
+			font-size: 12px;
+			color: #000000;
+			background: #FFFFFF;
+		}
+		p {
+			padding-left: 10px;
+		}
+		blockquote {
+			margin: 10px 20px 0px 20px;
+			padding: 10px;
+			border: 1px solid #98A289;
+			background-color: #fafafa;
+		}
+		li {
+			margin-top: 20px;
+		}
+		ul li ul li {
+			margin-top: 10px;
+		}
+		a, a:active, a:link, a:visited {
+			color: #0060FF;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #FF0000;
+			text-decoration: underline;
+		}
+		/* Place Holder Style */
+		#Container {
+			width: 780px;
+			margin-left: auto;
+			margin-right: auto; 
+		}
+		#Content {
+			background-color: #fafafa;
+			border: 1px solid #b5bdaa;
+			padding: 10px;
+			margin-top: -13px;
+		}
+		/* Title Style */
+		#Title {
+			font-family: Verdana, Arial;
+			font-size: 22px;
+			font-weight: bold;
+			color: #000080;
+			border-bottom: 1px solid #000080;
+			margin-bottom: 10px;
+		}
+		.SubTitle {
+			font-family: Verdana, Arial;
+			font-size: 18px;
+			font-weight: bold;
+			color: #3b6794;
+		}
+		.SubSubTitle {
+			font-family: Verdana, Arial;
+			font-size: 14px;
+			font-weight: bold;
+			color: #5384b6;
+		}
+		/* Tabs */
+		ul#Tabs {
+			font-family: Verdana, Arial;
+			font-size: 12px;
+			font-weight: bold;
+			list-style-type: none;
+			padding-bottom: 28px;
+			border-bottom: 1px solid #b5bdaa;
+			margin-bottom: 12px;
+			z-indice: 1;
+		}
+		#Tabs li.Tab {
+			float: right;
+			height: 25px;
+			background-color: #fafafa;
+			margin: 2px 0px 0px 5px;
+			border: 1px solid #b5bdaa;
+		}
+		#Tabs li.Tab a {
+			float: left;
+			display: block;
+			color: #666666;
+			text-decoration: none;
+			padding: 5px;
+		}
+		#Tabs li.Tab a:hover {
+			background-color: #bfe0fe;
+			border-bottom: 1px solid #bfe0fe;
+		}
+		/* Selected Tab */
+		#Tabs li.SelectedTab {
+			float: right;
+			height: 25px;
+			background-color: #fafafa;
+			margin: 2px 0px 0px 5px;
+			border-top: 1px solid #b5bdaa;
+			border-right: 1px solid #b5bdaa;
+			border-bottom: 1px solid #fafafa;
+			border-left: 1px solid #b5bdaa;
+		}
+		#Tabs li.SelectedTab a {
+			float: left;
+			display: block;
+			color: #666666;
+			text-decoration: none;
+			padding: 5px;
+			cursor: default;
+		}
+		/* Copyright */
+		#Copyright {
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript">
+		// indice Page
+		function indice() {
+			// Tab
+			document.getElementById('seccionIndice').className = 'SelectedTab';
+			document.getElementById('seccionInstalar').className = 'Tab';
+			document.getElementById('seccionUso').className = 'Tab';
+			// Page
+			document.getElementById('indice').style.display= 'block';
+			document.getElementById('seccionIndice').className = 'SelectedTab';
+			document.getElementById('instalar').style.display = 'none';
+			document.getElementById('uso').style.display = 'none';
+		}
+		// Installation Page
+		function instalar() {
+			// Tab
+			document.getElementById('seccionIndice').className = 'Tab';
+			document.getElementById('seccionInstalar').className = 'SelectedTab';
+			document.getElementById('seccionUso').className = 'Tab';
+			// Page
+			document.getElementById('indice').style.display= 'none';
+			document.getElementById('instalar').style.display = 'block';
+			document.getElementById('uso').style.display = 'none';
+		}
+		// uso Page
+		function uso() {
+			// Tab
+			document.getElementById('seccionIndice').className = 'Tab';
+			document.getElementById('seccionInstalar').className = 'Tab';
+			document.getElementById('seccionUso').className = 'SelectedTab';
+			// Page
+			document.getElementById('indice').style.display= 'none';		
+			document.getElementById('instalar').style.display = 'none';
+			document.getElementById('uso').style.display = 'block';
+		}
+</script>
+</head>
+<body>
+<!-- Based on Lester 'GaMerZ' Chan Template -->
+<div id="Container">
+	<!-- Title -->
+	<div id="Title">VR-Visitas 1.8 para WordPress</div>
+
+	<!-- Tabs -->
+	<ul id="Tabs">
+		<li id="seccionUso" class="Tab"><a href="#uso" onclick="uso(); return false;" title="Uso">C&oacute;mo usarlo</a></li>
+		<li id="seccionInstalar" class="Tab"><a href="#Installation" onclick="instalar(); return false;" title="Instalacion">Instalaci&oacute;n</a></li>
+		<li id="seccionIndice" class="SelectedTab"><a href="#indice" onclick="indice(); return false;" title="Indice">Indice</a></li>
+	</ul>
+
+	<!-- Content -->
+	<div id="Content">
+		<!-- indice -->
+		<div id="indice">
+			<div class="SubTitle">Indice</div>
+			<hr />
+			<div class="SubSubTitle">Informaci&oacute;n del Plugin</div>
+			<p><b>Autor:</b> Vicen&ccedil; Ruiz</p>
+			<p>
+				<b>e-Mail:</b>
+				<script type="text/javascript">
+					/* <![CDATA[*/
+					document.write(' <a href="mailto:webmaster@vruiz.net?Subject=VR-Visitas%201.6%20Soporte" title="e-mail para webmaster@vruiz.net">webmaster@vruiz.net</a>');
+					/* ]]> */
+				</script>
+			</p>
+			<p><b>WEB:</b> <a href="http://www.vruiz.net/" title="http://www.vruiz.net/">WEB del Viajero</a></p>
+			<p><b>Documentaci&oacute;n:</b> 
+			<a href="http://www.vruiz.net/2006/08/29/vr-visitas/">VR-Visitas (plugin 
+			para WordPress)</a></p>
+			<p><b>Actualizado:</b> 18/10/2007</p>
+			<div class="SubSubTitle">Funcionalidad</div>
+			<ul>
+				<li>
+					Al instalar el plugin, se crean dos bases de datos <i><b>vr_visitas</b></i> y
+					<i><b>vr_spam</b></i> que te permiten llevar un registro de las visitas a tu página.
+				</li>
+				<li>
+					Los resultados se muestran como: Visitas totales y Últimas 24 horas.
+				</li>
+				<li>
+					Tambi&eacute;n muestra datos del Copyright del autor y la fecha de actualización de la página.
+				</li>
+				<li>
+					A trav&eacute;s del panel de administración puedes consultar unas sencillas estadísticas y gestionar la base de datos.
+				</li>
+			</ul>
+			<div class="SubSubTitle">Changelog</div>
+			<ul>
+				<li>
+					<b>Versión 1.8 (18/10/2007)</b><ul>
+				<li>Corregido - Error al usar las funciones de wp_cron en 
+				versiones anteriores a la WP2.1.</li>
+			</ul>
+				</li>
+				<li>
+					<b>Versión 1.7 (12/10/2007)</b><ul>
+				<li>Corregido - Error al crear tablas en nueva instalación.</li>
+				<li>Añadido - Control de borrado automático de las entradas a 
+				través de WP-Cron (no aplicable a versiones anteriores a WP2.1)</li>
+				<li>Compatible con versiones anteriores: desde WP2.0 hasta WP2.3</li>
+			</ul>
+				</li>
+				<li>
+					<b>Versión 1.6 (16/09/2007)</b><ul>
+				<li>Actualizado para compatibilidad con WordPress 2.3.x.</li>
+			</ul>
+				</li>
+				<li>
+					<b>Versión 1.5a (16/09/2007)</b><ul>
+				<li>Ahora, antes de borrar las entradas de SPAM, comprueba si 
+				Akismet está activo y te avisa si tienes comentarios marcados 
+				como SPAM para que los borres usando Akismet, si no está activo, 
+				los elimina directamente.</li>
+			</ul>
+				</li>
+				<li>
+					<b>Versión 1.5 (05/09/2007)</b><ul>
+				<li>No es una actualización, pero se ha modificado el fichero 
+				visitas_lang.php para incluir la traducción al italiano de 
+				Mariachiara Pezzotti. </li>
+				<li>Ahora la opción para cambio de idioma es (es [Spanish], en [English], 
+				it [Italiano]). </li>
+			</ul>
+				</li>
+				<li>
+					<b>Versión 1.5 (02/10/2006)</b><ul>
+				<li>Añadida una nueva opción que delimita el número de registros 
+				guardados. Al borrar entradas de la tabla, se eliminarán también 
+				los registros antiguos, evitando así que la tabla crezca 
+				indefinidamente.</li>
+			</ul>
+				</li>
+				<li><b>Versión 1.4 (30/09/2006)</b><ul>
+				<li>Corregido un error al mostrar los listados de visitas y 
+				estadísticas.<br>Ahora muestra un mensaje de alerta cuando no hay registros para 
+				mostrar.</li>
+				<li>Actualizado el fichero visitas_lang con los nuevos mensajes.</li>
+				<li>Añadidos 2 nuevos resúmenes de estadísticas: Por cadena de 
+				Búsqueda y por Host.<br>También están delimitados por las correspondientes opciones.<br>La tabla vr_visitas de la base de datos se actualiza 
+				automáticamente al reiniciar el plugin con dos nuevos campos: &#39;search&#39; 
+				VARCHAR(100) NOT NULL y &#39;host&#39; VARCHAR(100) NOT NULL.</li>
+				<li>Nueva depuración del código, simplificando algunas 
+				funciones.</li>
+			</ul>
+				</li>
+				<li><b>Versi&oacute;n 1.3 (25/09/2006)</b><ul>
+				<li>Corregido un error al mostrar el listado de visitas. Ahora 
+				limitado a 1000 registros.</li>
+				<li>Actualizado el fichero visitas.lang con los nuevos mensajes.</li>
+				<li>Ahora muestra el promedio de visitas por día en el listado 
+				de visitas.</li>
+			</ul></li>
+			</ul>
+			<ul>
+				<li><b>Versi&oacute;n 1.2 (23/09/2006)</b><ul>
+					<li>Añadida nueva opción que permite mostrar sólo el Copyright, 
+				sólo el Contador o ambos; se elimina la necesidad de la función 
+				vr_contador() que se mantiene sólo a efectos de compatibilidad.</li>
+					<li>Ahora incluye la opción de mostrar un &quot;<i><b>widget</b></i>&quot; 
+				en la barra lateral si el tema permite esta función. Se activa 
+				automáticamente al instalar el plugin. Sólo tendrás que 
+				arrastrarlo dentro de la barra en el panel de administración 
+				para que funcione.</li>
+					<li>Cambiado el tipo de valor del campo &#39;<i><b>idSpam</b></i>&#39; 
+				que mostraba un error cuando se superaban los 127 registros en 
+				la tabla. Ahora es: <b><i>int(6) NOT NULL auto_increment</i></b>.</li>
+				</ul></li>
+				<li><b>Versi&oacute;n 1.1 (02/09/2006)</b>
+				<ul>
+					<li>A&ntilde;adida opci&oacute;n para cambio de idioma (es [Spanish], en [English]).</li>
+					<li>A&ntilde;adida opci&oacute;n para establecer manualmente la fecha de actualizaci&oacute;n.</li>
+					<li>Optimizaci&oacute;n del c&oacute;digo.</li>
+				</ul></li>
+				<li><b>Versi&oacute;n 1.0 (28/08/2006)</b>
+				<ul>
+					<li>FIRST RELEASE<br />Se ha verificado el uso en WordPress a partir de la versi&oacute;n 2.03,
+						NO en versiones anteriores. </li>
+				</ul></li>
+			</ul>
+		</div>
+
+		<!-- Installation Instructions -->
+		<div id="instalar" style="display: none;">
+			<div class="SubTitle">Instrucciones de Instalaci&oacute;n</div>
+			<hr />
+			<ol>
+				<li>
+					Descomprimir los archivos en la carpeta: <i><b>wp-content/plugins/visitas/</b></i> 
+				</li>
+				<li>
+					<i><b>Activar el plugin</b></i> en el Panel de Administración de WordPress.
+				</li>
+				<li>
+					En el panel de administraci&oacute;n <i><b>Visitas/Opciones</b></i>, actualizar los valores iniciales.
+				</li>
+				<li>
+					Seguir las instrucciones de uso en COMO USARLO.
+				</li>
+			</ol>
+			<div class="SubTitle">Instrucciones de Actualizaci&oacute;n</div>
+			<hr />
+			<ol>
+				<li>
+					<i><b>Desactivar el plugin</b></i> en el Panel de Administración de WordPress.
+				</li>
+				<li>
+					Descomprimir y sobreescribir los archivos en la carpeta: <i><b>wp-content/plugins/visitas/</b></i> 
+				</li>
+				<li>
+					<i><b>Activar nuevamente el plugin</b></i> en el Panel de Administración de WordPress.
+				</li>
+			</ol>
+		</div>
+
+		<!-- uso Instructions -->	
+		<div id="uso" style="display: none;">
+			<div class="SubTitle">Instrucciones de Uso</div>
+			<hr />
+			<div class="SubSubTitle">Uso General</div>
+			<ol>
+				<li>
+					Abrir el fichero <b>wp-content/themes/&lt;TU TEMA&gt;/footer.php</b>
+				</li>
+				<li>
+					Buscar:
+					<blockquote>
+						&lt;div  id="footer"&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;
+					</blockquote>
+				</li>
+				<li>
+					A&ntilde;adir el siguiente c&oacute;digo:
+					<blockquote>
+						<p>&lt;?php if(function_exists('vr_copyright&#39;)) 
+						{ vr_copyright(); } ?&gt; </p>
+					</blockquote>
+					<br />El resultado ser&aacute:
+					<blockquote>
+						© YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 1 - Últimas 24 horas: 1
+						<p>* Puedes seleccionar la información mostrada a través 
+						de una nueva opción.<br>
+						* También puedes ver los resultados en la barra lateral 
+						usando el widget <em><strong>visitas</strong></em> si tu 
+						tema lo permite.</p>
+					</blockquote>
+				</li>
+				<li>
+					El fichero <b>actualizado.html</b>, contiene un <i><b>webbot</b></i> que se
+					actualiza cada vez que se guarda el archivo.
+					<br />Este <i><b>webbot</b></i> almacena la fecha de actualización del fichero
+					que se utiliza para mostrar la fecha de actualización de tu página.
+				</li>
+				<li>
+					Dentro del menú de Administración de WordPress, se instala una nueva opción:
+					Visitas, con distintas ventanas para el manejo del plugin.
+					<blockquote>
+						<ol>
+							<li><b><i>Visitas</i></b>:<br />Muestra una lista de las últimas visitas registradas.</li>
+							<li><b><i>Añadir filtro</i></b>:<br />Permite añadir palabras que se usarán como filtro para borrar entradas de la base de datos.</li>
+							<li><b><i>Borrar filtro</i></b>:<br />Borra las palabras de la tabla de filtros.</li>
+							<li><b><i>Borrar SPAM</i></b>:<br />Elimina los registros de la base de datos correspondientes a las visitas de Robots y de los referentes que coincidan con tu lista de filtros.</li>
+							<li><b><i>Estadísticas</i></b>:<br />Muestra un resumen (en %) de las entradas registradas: por navegador, por sistema operativo, por número de visitas y por referente.</li>
+							<li><b><i>Opciones</i></b>:<br />Actualiza los valores de las opciones usadas en el plugin.<br />Se explican en la propia página.</li>
+						</ol>
+					</blockquote>
+				</li>
+			</ol>
+		</div>
+	</div>
+</div>
+<p id="Copyright">VR-Visitas 1.8<br />Copyright &copy; 2006-2007 Vicen&ccedil; Ruiz.</p>
+</body>
+</html>
