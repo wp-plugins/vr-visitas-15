@@ -1,4 +1,4 @@
-=== VR-Visitas 1.7 ===
+=== VR-Visitas 1.8 ===
 Author: Vicen&ccedil; Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.0.x
