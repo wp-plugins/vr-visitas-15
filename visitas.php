@@ -3,7 +3,7 @@
 Plugin Name: VR-Visitas
 Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
 Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght.
-Version: 1.7
+Version: 1.8
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
 */
@@ -57,23 +57,26 @@ function create_visitas_table() {
 	add_option('vr_search', "10", 'Search visits', 'yes'); // NUM
 	add_option('vr_host', "25", 'Host Visits', 'yes'); // NUM
 	add_option('vr_datelimit', "all", 'Database Time Limit', 'yes'); // NUM
-	add_option('vr_cron', "hourly", 'Cron Spam', 'yes'); // NUM
-}
-
-
-### This is the scheduling hook for our plugin that is triggered by cron
-function activar_cron() { 
-	$cronlimit = get_option('vr_cron');
-	$timestamp = wp_next_scheduled('visitas_cron');
-	wp_unschedule_event($timestamp, "visitas_cron");
-	if ($cronlimit != 'manual') {
-		wp_schedule_event(time()+30, $cronlimit, "visitas_cron");
+	if (function_exists('wp_schedule_event')) {
+		add_option('vr_cron', "hourly", 'Cron Spam', 'yes'); // NUM
 	}
 }
 
-register_activation_hook(__FILE__,'activar_cron');
-add_action('visitas_cron','borrarSpam');
 
+### This is the scheduling hook for our plugin that is triggered by cron (for WP 2.1.x ++)
+if (function_exists('wp_schedule_event')) {
+	function activar_cron() { 
+		$cronlimit = get_option('vr_cron');
+		$timestamp = wp_next_scheduled('visitas_cron');
+		wp_unschedule_event($timestamp, "visitas_cron");
+		if ($cronlimit != 'manual') {
+			wp_schedule_event(time()+30, $cronlimit, "visitas_cron");
+		}
+	}
+
+	register_activation_hook(__FILE__,'activar_cron');
+	add_action('visitas_cron','borrarSpam');
+}
 
 ### Visitas Menu - Crea los menus en el Panel de Administracion
 require_once("visitas_lang.php");
@@ -226,6 +229,7 @@ do_action('vr_activar');
 						</select>
 						<br />(<?php echo $vr_lang['opt_msg_datelimit']; ?>)</td>
 					</tr>
+					<?php if (function_exists('wp_schedule_event')) { ?>
 					<tr>
 						<td style='text-align: left'><?php echo $vr_lang['opt_lbl_cron']; ?></td>
 						<td style='text-align: left'>
@@ -247,6 +251,7 @@ do_action('vr_activar');
 						</select>
 						<br />(<?php echo $vr_lang['opt_msg_cron']; ?>)</td>
 					</tr>
+					<?php } ?>
 					<tr>
 						<td colspan="3" style='text-align: center'><input type="submit" value="<?php echo $vr_lang['opt_btn_submit']; ?>" name="" /></td>
 					</tr>

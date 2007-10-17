@@ -3,7 +3,7 @@ Author: Vicen&ccedil; Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.0.x
 Tested up to: 2.3
-Stable tag: 1.7
+Stable tag: 1.8
 
 Allows you to take a record of the visits to your page and shows it with the author Copyright and the update date of page.
 
@@ -40,10 +40,14 @@ Actualizaci&oacute;n:
 
 == Changelog ==
 
+Versi&oacute;n 1.8 *(18/10/2007)*
+
+* Corregido - Error al usar las funciones de wp_cron en versiones anteriores a la WP2.1.
+  
 Versi&oacute;n 1.7 *(12/10/2007)*
 
 * Corregido - Error al crear tablas en nueva instalaci&oacute;n.
-* A&ntilde;adido - Control de borrado autom&aacute;tico de las entradas a trav&eacute;s de WP-Cron
+* A&ntilde;adido - Control de borrado autom&aacute;tico de las entradas a trav&eacute;s de WP-Cron (no aplicable a versiones anteriores a WP2.1)
 * Compatible con versiones anteriores: desde WP2.0 hasta WP2.3
   
 Versi&oacute;n 1.6 *(16/09/2007)*
