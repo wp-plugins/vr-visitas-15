@@ -82,7 +82,9 @@ if (function_exists('wp_schedule_event')) {
 require_once("visitas_lang.php");
 add_action('admin_menu', 'vr_menu');
 add_action('plugins_loaded', 'widget_visitas_init');
-add_action('vr_activar', 'activar_cron');
+if (function_exists('wp_schedule_event')) {
+	add_action('vr_activar', 'activar_cron');
+}
 
 function vr_menu() {
 global $vr_lang;
