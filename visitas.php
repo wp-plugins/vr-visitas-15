@@ -10,14 +10,15 @@ Author URI: http://www.vruiz.net
 
 /*  Copyright 2006  Vicen&ccedil; Ruiz (visitas : webmaster@vruiz.net) */
 
-### Table Names
-$wpdb->visitas = $table_prefix . 'vr_visitas';
-$wpdb->spam = $table_prefix . 'vr_spam';
+global $wpdb;
+$wpdb->visitas = $wpdb->prefix . 'vr_visitas';
+$wpdb->spam = $wpdb->prefix . 'vr_spam';
 
-### Function: Create Tables
+### Function: Create Tables & options
 add_action('activate_visitas/visitas.php', 'create_visitas_table');
 function create_visitas_table() {
 	global $wpdb;
+
 	if(@is_file(ABSPATH.'/wp-admin/upgrade-functions.php')) {
 		include_once(ABSPATH.'/wp-admin/upgrade-functions.php');
 	} elseif(@is_file(ABSPATH.'/wp-admin/includes/upgrade.php')) {
