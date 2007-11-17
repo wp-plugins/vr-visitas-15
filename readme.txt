@@ -3,7 +3,7 @@ Author: Vicen&ccedil; Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.0.x
 Tested up to: 2.3
-Stable tag: 1.8
+Stable tag: 1.9
 
 Allows you to take a record of the visits to your page and shows it with the author Copyright and the update date of page.
 
@@ -40,6 +40,11 @@ Actualizaci&oacute;n:
 
 == Changelog ==
 
+Versi&oacute;n 1.9 *(18/11/2007)*
+
+* Cambiado - Ya no usa el archivo actualizado.html para mostrar la fecha de actualizaci&oacute;n. Ahora puedes elegir la fecha manualmente o mostrar la fecha de modificaci&oacute;n del &uacute;ltimo Art&iacute;culo o P&aacute;gina.
+* Corregido - Error por el que no se actualizaba la lista de cadenas de b&uacute;squeda para las estad&iacute;sticas.
+  
 Versi&oacute;n 1.8 *(18/10/2007)*
 
 * Corregido - Error al usar las funciones de wp_cron en versiones anteriores a la WP2.1.
@@ -122,11 +127,6 @@ Resultado => &copy; YYYY (Your name) - Actualizado: dd/mm/yy - Visitas totales: 
 * Puedes seleccionar la informaci&oacute;n mostrada a trav&eacute;s de una nueva opci&oacute;n.
 * Tambi&eacute;n puedes ver los resultados en la barra lateral usando el widget 'visitas' si tu tema lo permite.
 	
-El fichero actualizado.html, contiene un webbot que se actualiza cada vez que se guarda el archivo;
-este webbot almacena la fecha de actualizaci&oacute;n del fichero que se utiliza para mostrar la fecha de 
-actualizaci&oacute;n de tu p&aacute;gina.
-
-
 
 == Help ==
 

@@ -2,20 +2,24 @@
 /*
 Plugin Name: VR-Visitas
 Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
-Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght.
-Version: 1.8
+Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght y la fecha de actualizaci&oacute;n.
+Version: 1.9
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
 */
 
 /*  Copyright 2006  Vicen&ccedil; Ruiz (visitas : webmaster@vruiz.net) */
 
-global $wpdb;
-$wpdb->visitas = $wpdb->prefix . 'vr_visitas';
-$wpdb->spam = $wpdb->prefix . 'vr_spam';
 
-### Function: Create Tables & options
+
+### Crea las Tablas y Opciones iniciales ###
+
+global $wpdb;
+	$wpdb->visitas = $wpdb->prefix . 'vr_visitas';
+	$wpdb->spam = $wpdb->prefix . 'vr_spam';
+
 add_action('activate_visitas/visitas.php', 'create_visitas_table');
+
 function create_visitas_table() {
 	global $wpdb;
 
@@ -43,28 +47,30 @@ function create_visitas_table() {
 	maybe_create_table($wpdb->spam, $create_table);
 
 	// Add In Options (16 Records)
-	add_option('vr_old', 0, 'Contador', 'yes');
-	add_option('vr_self_IP', "0.0.0.0", 'IP propia', 'yes'); // AQUI DEBES INDICAR TU IP //
-	add_option('vr_delay', 3600, 'Retardo', 'yes'); // EN SEGUNDOS
-	add_option('vr_days', 3, 'Periodo', 'yes'); // EN DIAS
-	add_option('vr_year', "0000-0000", 'Fecha', 'yes'); // TEXTO
-	add_option('vr_contact', "emailto:yourname@yourdomain.com", 'Contacto', 'yes'); // TEXTO
-	add_option('vr_name', "Your Name", 'Nombre', 'yes'); // TEXTO
-	add_option('vr_update', "file", 'Actualizado', 'yes'); // TEXTO
-	add_option('vr_lang', "es", 'Idioma', 'yes'); // TEXTO
-	add_option('vr_display', "3", 'Mostrar', 'yes'); // NUM
-	add_option('vr_numof', "25", 'IP Visits', 'yes'); // NUM
-	add_option('vr_incom', "10", 'Referer visits', 'yes'); // NUM
-	add_option('vr_search', "10", 'Search visits', 'yes'); // NUM
-	add_option('vr_host', "25", 'Host Visits', 'yes'); // NUM
-	add_option('vr_datelimit', "all", 'Database Time Limit', 'yes'); // NUM
+	add_option('vr_old', 0, 'Counter', 'yes');
+	add_option('vr_self_IP', "0.0.0.0", 'Self IP', 'yes'); 
+	add_option('vr_delay', 3600, 'Delay', 'yes'); 
+	add_option('vr_days', 3, 'Days', 'yes'); 
+	add_option('vr_year', "0000-0000", 'Fecha', 'yes'); 
+	add_option('vr_contact', "mailto:yourname@yourdomain.com", 'Contacto', 'yes'); 
+	add_option('vr_name', "Your Name", 'Name', 'yes');
+	add_option('vr_update', "file", 'Updated', 'yes');
+	add_option('vr_lang', "es", 'Language', 'yes');
+	add_option('vr_display', "3", 'Display', 'yes');
+	add_option('vr_numof', "25", 'IP Visits', 'yes');
+	add_option('vr_incom', "10", 'Referer visits', 'yes');
+	add_option('vr_search', "10", 'Search visits', 'yes');
+	add_option('vr_host', "25", 'Host Visits', 'yes');
+	add_option('vr_datelimit', "all", 'Database Time Limit', 'yes');
 	if (function_exists('wp_schedule_event')) {
-		add_option('vr_cron', "hourly", 'Cron Spam', 'yes'); // NUM
+		add_option('vr_cron', "hourly", 'Cron Spam', 'yes');
 	}
 }
 
 
-### This is the scheduling hook for our plugin that is triggered by cron (for WP 2.1.x ++)
+
+### Inicia el hook para el control de WP_Cron (para WP 2.1.x ++) ###
+
 if (function_exists('wp_schedule_event')) {
 	function activar_cron() { 
 		$cronlimit = get_option('vr_cron');
@@ -79,7 +85,10 @@ if (function_exists('wp_schedule_event')) {
 	add_action('visitas_cron','borrarSpam');
 }
 
-### Visitas Menu - Crea los menus en el Panel de Administracion
+
+
+### Crea los Menus del Panel de Administracion ###
+
 require_once("visitas_lang.php");
 add_action('admin_menu', 'vr_menu');
 add_action('plugins_loaded', 'widget_visitas_init');
@@ -103,7 +112,8 @@ global $vr_lang;
 
 
 
-### Actualiza las opciones a traves del panel de administracion de WordPress
+### Muestra y actualiza las Opciones ###
+
 function vr_options() {
 global $vr_lang;
 
@@ -267,14 +277,14 @@ do_action('vr_activar');
 
 
 
-### Formulario para agregar filtros a la base de datos
+### Formulario para anadir filtros ###
+
 function vr_words() {
-	global $table_prefix, $wpdb, $vr_lang;
-	$tbl_spam = $table_prefix."vr_spam";
+	global $wpdb, $vr_lang;
 
 	if ($_POST["validar"] == "palabra") {
 		if (!empty($_POST['palabra']))	{
-			$wpdb->query("INSERT INTO $tbl_spam ( palabra ) VALUES ( '$_POST[palabra]' )");
+			$wpdb->query("INSERT INTO $wpdb->spam ( palabra ) VALUES ( '$_POST[palabra]' )");
 			if (!mysql_error())	{
 				$msg = "Introducida nueva palabra: ".$_POST[palabra];
 			} else {
@@ -325,7 +335,9 @@ function vr_words() {
 }
 
 
-### Borra de la base de datos las entradas que coincidan con las palabras de filtro
+
+### Borra las entradas consideradas SPAM ###
+
 function vr_borrar() {
 global $vr_lang;
 ?>
@@ -351,11 +363,7 @@ global $vr_lang;
 }
 
 function borrarSpam() {
-	// crea la lista de palabras a borrar y ejecuta la consulta
-	// --------------------------------------------------------
-	global $table_prefix, $wpdb, $vr_lang;
-	$tbl_spam = $table_prefix . "vr_spam";
-	$tbl_visitas = $table_prefix."vr_visitas";
+	global $wpdb, $vr_lang;
 	$now = time();
 	$datelimit = (get_option('vr_datelimit') != "all") ? ($now - (get_option('vr_datelimit')*60*60*24)) : 0;
 
@@ -373,7 +381,7 @@ function borrarSpam() {
 	}
 		
 	$spam =" referer LIKE '%poker%'";
-	$results = $wpdb->get_results("SELECT * FROM $tbl_spam"); 
+	$results = $wpdb->get_results("SELECT * FROM $wpdb->spam"); 
 	foreach ($results as $result) {
 		$spam .= " OR referer LIKE '%".$result->palabra."%'";
 	} 
@@ -384,10 +392,10 @@ function borrarSpam() {
 	$spam .= " OR os LIKE '%desconocido%'";
 	$spam .= " OR ip LIKE '%unknow%'";
 		
-	$spamcount = $wpdb->get_var("SELECT COUNT(*) AS count FROM $tbl_visitas WHERE ".$spam);
-	$timecount = $wpdb->get_var("SELECT COUNT(*) AS count FROM $tbl_visitas WHERE fecha < ".$datelimit);
-	$wpdb->query("DELETE FROM $tbl_visitas WHERE".$spam." OR fecha < ".$datelimit);
-	$wpdb->query("OPTIMIZE TABLE $tbl_visitas");
+	$spamcount = $wpdb->get_var("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE ".$spam);
+	$timecount = $wpdb->get_var("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE fecha < ".$datelimit);
+	$wpdb->query("DELETE FROM $wpdb->visitas WHERE".$spam." OR fecha < ".$datelimit);
+	$wpdb->query("OPTIMIZE TABLE $wpdb->visitas");
 	
 	$valor = get_option('vr_old');
 	$valor = $valor + $spamcount + $timecount;
@@ -407,20 +415,20 @@ function borrarSpam() {
 
 
 
-### Muestra las ultimas visitas registradas. El periodo se selecciona como una opcion
+### Muestra los ultimos registros (visitas) ###
+
 function vr_visitas() {
-	global $table_prefix, $wpdb, $vr_lang;
-	$tbl_visitas = $table_prefix."vr_visitas";
+	global $wpdb, $vr_lang;
 	$dias = get_option('vr_days');
 	$periodo = ($dias == 1) ? $vr_lang['sta_frm_oneday'] : $periodo = $dias.$vr_lang['sta_frm_days'];
 	$limite = time() - (86400 * $dias);
-	$visitas = $wpdb->get_var("SELECT COUNT(*) AS count FROM $tbl_visitas");
+	$visitas = $wpdb->get_var("SELECT COUNT(*) AS count FROM $wpdb->visitas");
 ?>
 <div class="wrap">
 	<h2><?php echo $vr_lang['sta_frm_last']." (".$periodo.")"; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$registros = $wpdb->get_var("SELECT COUNT(*) AS count FROM $tbl_visitas WHERE fecha > " . $limite);
+			$registros = $wpdb->get_var("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE fecha > " . $limite);
 			$promedio = ceil($registros/$dias);
 			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros
 			. $vr_lang['sta_frm_regs'] . " (" . $vr_lang['sta_frm_average'] . $promedio . ")</legend>";
@@ -434,7 +442,7 @@ function vr_visitas() {
 				<th><?php echo $vr_lang['sta_frm_os']; ?></th>
 			</tr>
 			<?php
-				$results = $wpdb->get_results("SELECT * FROM $tbl_visitas WHERE fecha > $limite ORDER BY fecha DESC"); 
+				$results = $wpdb->get_results("SELECT * FROM $wpdb->visitas WHERE fecha > $limite ORDER BY fecha DESC"); 
 					foreach ($results as $result) {
 						$reflink = "<a target='_blank' href='".$result->referer."'>".substr($result->referer, 0, 50)."</a>";
 						$_date = date("d\/m\/y - H:i",$result->fecha);
@@ -456,17 +464,17 @@ function vr_visitas() {
 
 
 
-### Muestra diversas estadisticas de la base de datos
+### Muestra las diferentes estadisticas ###
+
 function vr_stats() {
-	global $table_prefix, $wpdb, $vr_lang;
-	$tbl_visitas = $table_prefix."vr_visitas";
-	$visitas = $wpdb->get_var("SELECT COUNT(*) AS count FROM $tbl_visitas");
+	global $wpdb, $vr_lang;
+	$visitas = $wpdb->get_var("SELECT COUNT(*) AS count FROM $wpdb->visitas");
 ?>
 <div class="wrap">
 	<h2><?php echo $vr_lang['sta_frm_nav']; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT browser, COUNT(browser) AS count FROM $tbl_visitas GROUP BY browser ORDER BY count DESC";
+			$query = "SELECT browser, COUNT(browser) AS count FROM $wpdb->visitas GROUP BY browser ORDER BY count DESC";
 			$registros = mysql_num_rows(mysql_query($query));
 			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_browser'];
@@ -481,9 +489,9 @@ function vr_stats() {
 	<h2><?php echo $vr_lang['sta_frm_sys']; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT os, COUNT(os) AS count FROM $tbl_visitas GROUP BY os ORDER BY count DESC";
-			$total_registros = mysql_num_rows(mysql_query($query));
-			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $total_registros . $vr_lang['sta_frm_regs']."</legend>";
+			$query = "SELECT os, COUNT(os) AS count FROM $wpdb->visitas GROUP BY os ORDER BY count DESC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_os'];
 			$col2 = $vr_lang['sta_frm_num'];
 			$col3 = $vr_lang['sta_frm_percent'];
@@ -496,9 +504,9 @@ function vr_stats() {
 	<h2><?php echo $vr_lang['sta_frm_numof']." (".$vr_lang['sta_frm_morethan'].get_option('vr_numof').$vr_lang['sta_frm_visits'].")"; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT ip, COUNT(ip) AS count FROM $tbl_visitas GROUP BY ip HAVING count >= ".get_option('vr_numof')." ORDER BY count DESC, ip ASC";
-			$total_registros = mysql_num_rows(mysql_query($query));
-			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $total_registros . $vr_lang['sta_frm_regs']."</legend>";
+			$query = "SELECT ip, COUNT(ip) AS count FROM $wpdb->visitas GROUP BY ip HAVING count >= ".get_option('vr_numof')." ORDER BY count DESC, ip ASC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_ip'];
 			$col2 = $vr_lang['sta_frm_num'];
 			$col3 = $vr_lang['sta_frm_percent'];
@@ -511,9 +519,9 @@ function vr_stats() {
 	<h2><?php echo $vr_lang['sta_frm_incom']." (".$vr_lang['sta_frm_morethan'].get_option('vr_incom').$vr_lang['sta_frm_visits'].")"; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT referer, COUNT(referer) AS count FROM $tbl_visitas WHERE referer != '' GROUP BY referer HAVING count >= ".get_option('vr_incom')." ORDER BY count DESC, referer ASC";
-			$total_registros = mysql_num_rows(mysql_query($query));
-			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $total_registros . $vr_lang['sta_frm_regs']."</legend>";
+			$query = "SELECT referer, COUNT(referer) AS count FROM $wpdb->visitas WHERE referer != '' GROUP BY referer HAVING count >= ".get_option('vr_incom')." ORDER BY count DESC, referer ASC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_referer'];
 			$col2 = $vr_lang['sta_frm_num'];
 			$col3 = $vr_lang['sta_frm_percent'];
@@ -526,9 +534,9 @@ function vr_stats() {
 	<h2><?php echo $vr_lang['sta_frm_search']." (".$vr_lang['sta_frm_morethan'].get_option('vr_search').$vr_lang['sta_frm_visits'].")"; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT search, COUNT(search) AS count FROM $tbl_visitas WHERE search != '' GROUP BY search HAVING count >= ".get_option('vr_search')." ORDER BY count DESC";
-			$total_registros = mysql_num_rows(mysql_query($query));
-			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $total_registros . $vr_lang['sta_frm_regs']."</legend>";
+			$query = "SELECT search, COUNT(search) AS count FROM $wpdb->visitas WHERE search != '' GROUP BY search HAVING count >= ".get_option('vr_search')." ORDER BY count DESC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_terms'];
 			$col2 = $vr_lang['sta_frm_num'];
 			$col3 = $vr_lang['sta_frm_percent'];
@@ -541,9 +549,9 @@ function vr_stats() {
 	<h2><?php echo $vr_lang['sta_frm_host']." (".$vr_lang['sta_frm_morethan'].get_option('vr_host').$vr_lang['sta_frm_visits'].")"; ?></h2>
 	<fieldset class="options">
 		<?php 
-			$query = "SELECT host, COUNT(host) AS count FROM $tbl_visitas WHERE host != '' GROUP BY host HAVING count >= ".get_option('vr_host')." ORDER BY count DESC, host ASC";
-			$total_registros = mysql_num_rows(mysql_query($query));
-			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $total_registros . $vr_lang['sta_frm_regs']."</legend>";
+			$query = "SELECT host, COUNT(host) AS count FROM $wpdb->visitas WHERE host != '' GROUP BY host HAVING count >= ".get_option('vr_host')." ORDER BY count DESC, host ASC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
 			$col1 = $vr_lang['sta_frm_hostref'];
 			$col2 = $vr_lang['sta_frm_num'];
 			$col3 = $vr_lang['sta_frm_percent'];
@@ -554,7 +562,10 @@ function vr_stats() {
 <?php 
 }
 
-### Crea la lista de resultados para los cuadros de estadsticas
+
+
+### Crea las tablas de resultados para mostrar las estadisticas ###
+
 function vr_list_stats($query,$visitas,$col1,$col2,$col3) {
 	global $wpdb, $vr_lang;
 	
@@ -583,7 +594,9 @@ function vr_list_stats($query,$visitas,$col1,$col2,$col3) {
 }
 
 
-### Registra los datos del visitante - Basado en el script de Angel Ruiz
+
+### Recoge los datos del usuario (visitante) - Based on small script from Angel Ruiz ###
+
 function vr_userinfo() {
 	$ip = vr_GetIPAddress();
 	$browser = vr_GetBrowser($_SERVER['HTTP_USER_AGENT']);
@@ -725,12 +738,18 @@ function vr_search_terms($url) {
 		return $q['p'];
 	else if (preg_match("/search\.aol\./",$url['host']))
 		return $q['query'];
+	else if (preg_match("/search\.live\./",$url['host']))
+		return $q['q'];
 	else if (preg_match("/search\.msn\./",$url['host']))
 		return $q['q'];
-	else if (preg_match("/prodigy\.msn\./",$url['host']))
+	else if (preg_match("/search\.latam\.msn\./",$url['host']))
+		return $q['q'];
+	else if (preg_match("/search\.prodigy\.msn\./",$url['host']))
 		return $q['q'];
 	else if (preg_match("/clarin\./",$url['host']))
 		return $q['Busqueda'];
+	else if (preg_match("/wp-plugins\./",$url['host']))
+		return $q['filter'];
 }
 
 function vr_search_imgs($url) {
@@ -744,10 +763,12 @@ function vr_search_imgs($url) {
 		return $q['imgurl'];
 }
 
-### Actualiza la Base de datos y cuenta el total de visitas (excluye la IP propia) - Basado en el script de Angel Ruiz
+
+
+### Actualiza la Base de Datos con las nuevas visitas (excluye la IP propia) - Based on small script from Angel Ruiz ###
+
 function vr_usuarios_totales() {
-	global $table_prefix, $wpdb;
-	$tbl_visitas = $table_prefix."vr_visitas";
+	global $wpdb;
 	$ip_propia = get_option('vr_self_IP');
 	$delay = get_option('vr_delay');
 
@@ -755,31 +776,32 @@ function vr_usuarios_totales() {
 	$now = time();
 	$limite = $now - $delay;
 	if($ip != $ip_propia) {
-		$rows = $wpdb->get_row("SELECT COUNT(*) AS count FROM $tbl_visitas WHERE ip = '$ip' AND fecha >". $limite);
+		$rows = $wpdb->get_row("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE ip = '$ip' AND fecha >". $limite);
 		if($rows->count == 0) { 
-			$wpdb->query("INSERT INTO $tbl_visitas (ip,fecha,referer,browser,os,search,host) VALUES ('$ip',$now,'$referer','$browser','$os','$search','$host')"); 
+			$wpdb->query("INSERT INTO $wpdb->visitas (ip,fecha,referer,browser,os,search,host) VALUES ('$ip',$now,'$referer','$browser','$os','$search','$host')"); 
 		}
 	}
-	$usuarios = $wpdb->get_row("SELECT COUNT(*) AS count FROM $tbl_visitas");
+	$usuarios = $wpdb->get_row("SELECT COUNT(*) AS count FROM $wpdb->visitas");
 	return $usuarios->count;
 } 
 
 
 
-### Selecciona el numero de usuarios dentro del limite (segundos) de la consulta - Basado en el script de Angel Ruiz
+### Selecciona el numero de visitantes dentro del limite de tiempo - Based on small script from Angel Ruiz ###
+
 function vr_usuarios_limite ($limit) {
-	global $table_prefix, $wpdb;
-	$tbl_visitas = $table_prefix."vr_visitas";
+	global $wpdb;
 
 	$now = time();
 	$limite = $now - $limit;
-	$usuarios = $wpdb->get_row("SELECT COUNT(*) AS count FROM $tbl_visitas WHERE fecha >". $limite);
+	$usuarios = $wpdb->get_row("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE fecha >". $limite);
 	return $usuarios->count;
 } 
 
 
 
-### Contadores de visitas - Basados en el script de Angel Ruiz
+### Contadores - Based on small script from Angel Ruiz ###
+
 function vr_v_totales() {
 	$valor = get_option('vr_old');
 	$totales = $valor + vr_usuarios_totales();
@@ -793,17 +815,17 @@ function vr_v_diarios() {
 
 
 
-### Elimina palabras (filtros) de la base de datos
+### Borra los filtros seleccionados ###
+
 function vr_filtro() {
-	global $table_prefix, $wpdb, $vr_lang;
-	$tbl_spam = $table_prefix."vr_spam";
+	global $wpdb, $vr_lang;
 
 	if ($_POST["validar"] == "spam") {
 		// Gracias a Angel por su ayuda en esta rutina y a Loli por su paciencia.
 		foreach (array_keys($_POST) as $key) {
 			if ($key != "validar" && !empty($key)) {
-				$palabra = mysql_result(mysql_query("SELECT palabra FROM $tbl_spam WHERE idSpam = $key"), 0, palabra);
-				$wpdb->query("DELETE FROM $tbl_spam WHERE idSpam = $key");
+				$palabra = mysql_result(mysql_query("SELECT palabra FROM $wpdb->spam WHERE idSpam = $key"), 0, palabra);
+				$wpdb->query("DELETE FROM $wpdb->spam WHERE idSpam = $key");
 				if (!mysql_error()) {
 					if (empty($list_palabras)) {
 						$list_palabras = $palabra;
@@ -822,7 +844,7 @@ function vr_filtro() {
 			$msg = "<span style='color: #FF0000'>".$vr_lang['del_msg_err']."</span> ";
 			$msg .= $vr_lang['del_msg_null'];
 		}
-		$wpdb->query("OPTIMIZE TABLE $tbl_spam");
+		$wpdb->query("OPTIMIZE TABLE $wpdb->spam");
 	}
 	if ($msg != '') : ?>
 		<div id="message" class="updated fade"><p><strong><?php print $msg; ?></strong></p></div>
@@ -853,7 +875,7 @@ function vr_filtro() {
 				<table border="0" width="100%">
 					<tr>
 					<?php
-						$registros = $wpdb->get_row("SELECT COUNT(*) as count FROM $tbl_spam");
+						$registros = $wpdb->get_row("SELECT COUNT(*) as count FROM $wpdb->spam");
 						$limite = ceil($registros->count / 5);
 						for ($i=0; $i<5; $i++) {
 							$inicio = $limite * $i;
@@ -861,7 +883,7 @@ function vr_filtro() {
 						<td valign="top">
 							<table cellspacing="3" cellpadding="3" border="0" width="100%">
 							<?php
-								$rslist = mysql_query("select * from $tbl_spam ORDER by palabra ASC LIMIT $inicio,$limite");
+								$rslist = mysql_query("select * from $wpdb->spam ORDER by palabra ASC LIMIT $inicio,$limite");
 								vr_spam_list($rslist);
 							?>
 							</table>
@@ -886,7 +908,10 @@ function vr_filtro() {
 <?php
 }
 
-### Crea la lista a mostrar en el formulario de borrar filtros
+
+
+### Crea las filas de la tabla de filtros registrados ###
+
 function vr_spam_list($rslist) {
 	// Generates the filter list to manage it
 	$list_spam ="";
@@ -898,14 +923,16 @@ function vr_spam_list($rslist) {
 }
 
 
+
 ### Muestra los datos de Copyright y las estadisticas de visitantes.
-### Debes actualizar el fichero actualizado.html, cada vez que hagas cambios, para mostrar la fecha correcta.
+
 function vr_copyright($init="",$sep="",$end="") {
 	// Generates the string $copyrigtt based on user options
 	
-	global $vr_lang;
+	global $wpdb, $vr_lang;
 	if (get_option('vr_update') == "file" || get_option('vr_update') == "archivo") {
-		$fecha = implode('', file(get_settings('siteurl')."/wp-content/plugins/visitas/actualizado.html"));
+		$fila = $wpdb->get_row("SELECT * FROM $wpdb->posts ORDER BY post_modified DESC LIMIT 1");
+		$fecha = date("d/m/Y" , strtotime($fila->post_modified));
 	} else{
 		$fecha = get_option('vr_update');
 	}
@@ -935,11 +962,7 @@ function vr_copyright($init="",$sep="",$end="") {
 	echo $copyright;
 }
 
-### Muestra solo los datos de las visitas recibidas
-function vr_contador() {
-	// Obsolete function. Now select options trough admin panel.
-	vr_copyright();
-}
+### Crea el Widget àra usar en la barra lateral
 
 function widget_visitas_init() {
 	// Add a widget control and enable it
