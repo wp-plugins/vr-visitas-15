@@ -1,9 +1,9 @@
-=== VR-Visitas 1.9 ===
+=== VR-Visitas 2.0 ===
 Author: Vicen&ccedil; Ruiz http://www.vruiz.net (webmaster@vruiz.net)
 Tags: visits, stats, counter
 Requires at least: 2.0.x
 Tested up to: 2.3
-Stable tag: 1.9
+Stable tag: 2.0
 
 Allows you to take a record of the visits to your page and shows it with the author Copyright and the update date of page.
 
@@ -40,6 +40,11 @@ Actualizaci&oacute;n:
 
 == Changelog ==
 
+Versi&oacute;n 2.0 *(19/11/2007)*
+
+* NUEVO - Si est&aacute; instalado el plug-in [ip_2_nation](http://frenchfragfactory.net/ozh/archives/2004/08/27/ip-to-nation-plugin/) registra el pa&iacute;s de la IP visitante y muestra la estad&iacute;stica correspondiente.
+* A&ntilde;adido - Nuevos filtros para cadenas de b&uacute;squeda, exploradores y sistemas operativos.
+  
 Versi&oacute;n 1.9 *(18/11/2007)*
 
 * Cambiado - Ya no usa el archivo actualizado.html para mostrar la fecha de actualizaci&oacute;n. Ahora puedes elegir la fecha manualmente o mostrar la fecha de modificaci&oacute;n del &uacute;ltimo Art&iacute;culo o P&aacute;gina.
@@ -71,7 +76,7 @@ Versi&oacute;n 1.5 *(05/09/2007)*
 Versi&oacute;n 1.5 *(02/10/2006)*
 
 * A&ntilde;adida una nueva opci&oacute;n que delimita el n&uacute;mero de registros guardados.
-* Al borrar entradas de la tabla, se eliminar&aacute;n tambi&eacute;n los registros antiguos, evitando as&iacute;    que la tabla crezca indefinidamente.
+* Al borrar entradas de la tabla, se eliminar&aacute;n tambi&eacute;n los registros antiguos, evitando as&iacute; que la tabla crezca indefinidamente.
 
 Versi&oacute;n 1.4 *(30/09/2006)*
 

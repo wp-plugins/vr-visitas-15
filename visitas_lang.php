@@ -1,5 +1,5 @@
 <?php
-/* Version: 1.3 (25/09/2006) */
+/* Version: 2.0 (19/11/2007) */
 
 $sel_lang = get_option('vr_lang');
 
@@ -55,6 +55,7 @@ $vr_lang['opt_msg_numof'] 		= "Minimum number of hits to show results in stats p
 $vr_lang['opt_msg_incom'] 		= "Minimum number of hits to show results in stats page (for Referer visits)";
 $vr_lang['opt_msg_search'] 		= "Minimum number of hits to show results in stats page (for Search string visits)";
 $vr_lang['opt_msg_host'] 		= "Minimum number of hits to show results in stats page (for Host visits)";
+$vr_lang['opt_msg_country']		= "Minimum number of hits to show results in stats page (for Country visits)";
 $vr_lang['opt_msg_datelimit'] 	= "Maximum days to preserve hits in data base. Old entries are deleted when cleaning SPAM.";
 $vr_lang['opt_msg_cron'] 		= "Activates the use of the function wp_cron in order to delete the Spam registries from the data base.<br />If you choose the option 'Manually', wp_cron remains inactive and you need use 'delete Spam'";
 
@@ -96,6 +97,7 @@ $vr_lang['sta_frm_numof']		= "Visits Stats";
 $vr_lang['sta_frm_incom']		= "Referer Stats by String";
 $vr_lang['sta_frm_search']		= "Search Stats";
 $vr_lang['sta_frm_host']		= "Referer Stats by Host";
+$vr_lang['sta_frm_country']		= "Stats by Country";
 $vr_lang['sta_frm_oneday']		= "24 hours";
 $vr_lang['sta_frm_days']		= " days";
 
@@ -110,11 +112,12 @@ $vr_lang['sta_frm_date']		= "Date";
 $vr_lang['sta_frm_referer']		= "Referer";
 $vr_lang['sta_frm_browser']		= "Browser";
 $vr_lang['sta_frm_os']			= "O.S.";
-$vr_lang['sta_frm_num']			= "N&uacute;mero de Visitas";
+$vr_lang['sta_frm_num']			= "No. of Visits";
 $vr_lang['sta_frm_percent']		= "Percent";
 $vr_lang['sta_frm_ip']			= "Visitor IP";
 $vr_lang['sta_frm_terms']		= "Search Terms";
 $vr_lang['sta_frm_hostref']		= "Host Name";
+$vr_lang['sta_frm_countryname']	= "Country";
 $vr_lang['sta_frm_morethan']	= "More than ";
 
 $vr_lang['cpy_msg_updated']		= "Updated: ";
@@ -192,10 +195,11 @@ $vr_lang['opt_msg_name'] 		= "Nome da mostrare";
 $vr_lang['opt_msg_update'] 		= "settare 'file' per usare data de l'ultimo post o impostarlo manualmente.";
 $vr_lang['opt_msg_lang'] 		= "en [Ingelse] - es [Spagnolo] - it [Italiano]";
 $vr_lang['opt_msg_display'] 	= "1 [Mostra solo Copyright] - 2 [Mostra solo il contatore] - 3 [Mostra sia il Copyright che il contatore]";
-$vr_lang['opt_msg_numof'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(per le visite da IP)";
-$vr_lang['opt_msg_incom'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(Per le visite referenziate)";
-$vr_lang['opt_msg_search'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(per le  visite da stringhe di ricerca)";
-$vr_lang['opt_msg_host'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche(per le visite da host)";
+$vr_lang['opt_msg_numof'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche (per le visite da IP)";
+$vr_lang['opt_msg_incom'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche (per le visite referenziate)";
+$vr_lang['opt_msg_search'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche (per le visite da stringhe di ricerca)";
+$vr_lang['opt_msg_host'] 		= "Numero minimo di hits da mostrare nella pagina delle statistiche (per le visite da host)";
+$vr_lang['opt_msg_country']		= "Numero minimo di hits da mostrare nella pagina delle statistiche (per le visite da Country)";
 $vr_lang['opt_msg_datelimit'] 	= "Numero massimo di giorni per mantenere le Hits sul data base. I vecchi inserimenti verranno cancellati insieme allo SPAM.";
 $vr_lang['opt_msg_cron'] 		= "Attiva l'uso dalla funzione wp_cron per cancellare le registrazioni dello Spam di base.<br/>L'opzione 'manualmente', inattiva il wp_cron ed avete bisogno dell'uso de 'Cancella SPAM'.";
 
@@ -237,6 +241,7 @@ $vr_lang['sta_frm_numof']		= "Statistiche di visita";
 $vr_lang['sta_frm_incom']		= "Referer Stats di String";
 $vr_lang['sta_frm_search']		= "Statistiche di ricerca";
 $vr_lang['sta_frm_host']		= "Referer Stats da Host";
+$vr_lang['sta_frm_country']		= "Stats by Country";
 $vr_lang['sta_frm_oneday']		= "24 ore";
 $vr_lang['sta_frm_days']		= " giorni";
 
@@ -256,6 +261,7 @@ $vr_lang['sta_frm_percent']		= "Percentuale";
 $vr_lang['sta_frm_ip']			= "Visitatori IP";
 $vr_lang['sta_frm_terms']		= "Termini cercati";
 $vr_lang['sta_frm_hostref']		= "Nome Host";
+$vr_lang['sta_frm_countryname']	= "Country";
 $vr_lang['sta_frm_morethan']	= "Pi&ugrave; di ";
 
 $vr_lang['cpy_msg_updated']		= "Aggiorna: ";
@@ -337,6 +343,7 @@ $vr_lang['opt_msg_numof'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostr
 $vr_lang['opt_msg_incom'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Referente)";
 $vr_lang['opt_msg_search'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Cadena de B&uacute;squeda)";
 $vr_lang['opt_msg_host'] 		= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Anfitri&oacute;n (Host)";
+$vr_lang['opt_msg_country'] 	= "N&uacute;mero m&iacute;nimo de visitas para mostrar resultados en la p&aacute;gina de estad&iacute;sticas (por Pa&iacute;s)";
 $vr_lang['opt_msg_datelimit'] 	= "N&uacute;mero m&aacute;ximo de d&iacute;as para conservar los registros en la base de datos.<br />Las entradas antiguas se borran al limpiar el SPAM.";
 $vr_lang['opt_msg_cron'] 		= "Activa el uso de la funci&oacute;n <strong>wp_cron</strong> para eliminar los registros de SPAM de la bas de datos.<br />Si eliges 'manualmente' se desactiva <strong>wp_cron</strong> y tendr&aacute;s que usar 'borrar SPAM'.";
 
@@ -378,6 +385,7 @@ $vr_lang['sta_frm_numof']		= "Estad&iacute;sticas por N&uacute;mero de Visitas";
 $vr_lang['sta_frm_incom']		= "Estad&iacute;sticas por Referente";
 $vr_lang['sta_frm_search']		= "Estad&iacute;sticas por Cadena de B&uacute;squeda";
 $vr_lang['sta_frm_host']		= "Estad&iacute;sticas por Anfitri&oacute;n (host)";
+$vr_lang['sta_frm_country']		= "Estad&iacute;sticas por Pa&iacute;s";
 $vr_lang['sta_frm_oneday']		= "24 horas";
 $vr_lang['sta_frm_days']		= " d&iacute;as";
 
@@ -397,6 +405,7 @@ $vr_lang['sta_frm_percent']		= "Porcentaje";
 $vr_lang['sta_frm_ip']			= "IP Visitante";
 $vr_lang['sta_frm_terms']		= "Cadena de B&uacute;squeda";
 $vr_lang['sta_frm_hostref']		= "Anfitri&oacute;n";
+$vr_lang['sta_frm_countryname']	= "Pa&iacute;s";
 $vr_lang['sta_frm_morethan']	= "M&aacute;s de ";
 
 $vr_lang['cpy_msg_updated']		= "Actualizado: ";

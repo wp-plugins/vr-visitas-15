@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: VR-Visitas
-Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
+Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas-2/
 Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght y la fecha de actualizaci&oacute;n.
-Version: 1.9
+Version: 2.0
 Author: Vicen&ccedil; Ruiz
 Author URI: http://www.vruiz.net
 */
@@ -46,7 +46,10 @@ function create_visitas_table() {
 							"PRIMARY KEY (idSpam));";
 	maybe_create_table($wpdb->spam, $create_table);
 
-	// Add In Options (16 Records)
+	### Actualiza para 2.0 ###
+	maybe_add_column($wpdb->visitas, 'country', "ALTER TABLE $wpdb->visitas ADD country varchar(50) NOT NULL default '';");
+
+	// Add In Options (16+1 Records)
 	add_option('vr_old', 0, 'Counter', 'yes');
 	add_option('vr_self_IP', "0.0.0.0", 'Self IP', 'yes'); 
 	add_option('vr_delay', 3600, 'Delay', 'yes'); 
@@ -61,6 +64,7 @@ function create_visitas_table() {
 	add_option('vr_incom', "10", 'Referer visits', 'yes');
 	add_option('vr_search', "10", 'Search visits', 'yes');
 	add_option('vr_host', "25", 'Host Visits', 'yes');
+	add_option('vr_country', "1", 'Country Visits', 'yes');
 	add_option('vr_datelimit', "all", 'Database Time Limit', 'yes');
 	if (function_exists('wp_schedule_event')) {
 		add_option('vr_cron', "hourly", 'Cron Spam', 'yes');
@@ -221,6 +225,13 @@ do_action('vr_activar');
 						<td style='text-align: left'><input style='text-align: left' type="text" name="vr_host" size="4" value="<?php echo get_option('vr_host'); ?>" />
 						<br />(<?php echo $vr_lang['opt_msg_host']; ?>)</td>
 					</tr>
+					<?php if (function_exists('wp_ozh_ip2nation')) { ?>
+					<tr>
+						<td style='text-align: left'><?php echo $vr_lang['opt_lbl_visits']; ?></td>
+						<td style='text-align: left'><input style='text-align: left' type="text" name="vr_country" size="4" value="<?php echo get_option('vr_country'); ?>" />
+						<br />(<?php echo $vr_lang['opt_msg_country']; ?>)</td>
+					</tr>
+					<?php } ?>
 					<tr>
 						<td style='text-align: left'><?php echo $vr_lang['opt_lbl_datelimit']; ?></td>
 						<td style='text-align: left'>
@@ -437,6 +448,7 @@ function vr_visitas() {
 		<table cellspacing="3" cellpadding="3" border="0" width="100%">
 			<tr>
 				<th><?php echo $vr_lang['sta_frm_date']; ?></th>
+				<th>IP</th>
 				<th><?php echo $vr_lang['sta_frm_referer']; ?></th>
 				<th><?php echo $vr_lang['sta_frm_browser']; ?></th>
 				<th><?php echo $vr_lang['sta_frm_os']; ?></th>
@@ -447,7 +459,7 @@ function vr_visitas() {
 						$reflink = "<a target='_blank' href='".$result->referer."'>".substr($result->referer, 0, 50)."</a>";
 						$_date = date("d\/m\/y - H:i",$result->fecha);
 						$class = ('alternate' == $class) ? '' : 'alternate';
-						echo "<tr class=" . $class . "><td align='center'>$_date</td><td>$reflink</td>";
+						echo "<tr class=" . $class . "><td align='center'>$_date</td><td align='center'>$result->ip</td><td>$reflink</td>";
 						echo "<td align='center'>$result->browser</td><td align='center'>$result->os</td></tr>";
 					}
 				} else if ($registros == 0) {
@@ -559,7 +571,24 @@ function vr_stats() {
 		?>
 	</fieldset>
 </div>
+
+<?php if (function_exists('wp_ozh_ip2nation')) { ?>
+<div class="wrap">
+	<h2><?php echo $vr_lang['sta_frm_country']." (".$vr_lang['sta_frm_morethan'].get_option('vr_country').$vr_lang['sta_frm_visits'].")"; ?></h2>
+	<fieldset class="options">
+		<?php 
+			$query = "SELECT country, COUNT(country) AS count FROM $wpdb->visitas WHERE country != '' GROUP BY country HAVING count >= ".get_option('vr_country')." ORDER BY count DESC, country ASC";
+			$registros = mysql_num_rows(mysql_query($query));
+			echo "<legend>".$vr_lang['sta_frm_sub'] . $visitas . $vr_lang['sta_frm_visits'] . $registros . $vr_lang['sta_frm_regs']."</legend>";
+			$col1 = $vr_lang['sta_frm_countryname'];
+			$col2 = $vr_lang['sta_frm_num'];
+			$col3 = $vr_lang['sta_frm_percent'];
+			vr_list_stats($query,$visitas,$col1,$col2,$col3);
+		?>
+	</fieldset>
+</div>
 <?php 
+	}
 }
 
 
@@ -607,7 +636,12 @@ function vr_userinfo() {
 	if ($search == "") {
 		$term = vr_search_terms($referer);
 	}
-	return "$ip@$browser@$os@$referer@$search@$host[host]";
+	if (function_exists('wp_ozh_ip2nation')) {
+		$country = wp_ozh_getCountryName(0, $ip);
+	} else {
+		$country = "";
+	}
+	return "$ip@$browser@$os@$referer@$search@$host[host]@$country";
 }
 
 function vr_GetIPAddress() {
@@ -691,6 +725,7 @@ function vr_GetOS($sop) {
 	else if(strpos($sop, "nt 5.0") || strpos($sop, "windows 2000") !== false) { return "Windows 2000"; }
 	else if(strpos($sop, "nt 5.1") || strpos($sop, "windows xp") !== false) { return "Windows XP"; }
 	else if(strpos($sop, "nt 5.2") !== false)  { return "Win Server 2003"; }
+	else if(strpos($sop, "nt 6.0") !== false)  { return "Windows Vista"; }
 	else if(strpos($sop, "windows CE") !== false) { return "Windows Pocket PC"; }
 	else if(strpos($sop, "nt 4") || strpos($sop, "nt4") || strpos($sop, "winnt") || strpos($sop, "windows nt") !== false) { return "Windows NT 4.0"; }
 	else if(strpos($sop, "windows") !== false) { return "Windows"; }
@@ -772,13 +807,13 @@ function vr_usuarios_totales() {
 	$ip_propia = get_option('vr_self_IP');
 	$delay = get_option('vr_delay');
 
-	list($ip, $browser, $os, $referer, $search, $host) = explode("@",vr_userinfo());
+	list($ip, $browser, $os, $referer, $search, $host, $co, $country) = explode("@",vr_userinfo());
 	$now = time();
 	$limite = $now - $delay;
 	if($ip != $ip_propia) {
 		$rows = $wpdb->get_row("SELECT COUNT(*) AS count FROM $wpdb->visitas WHERE ip = '$ip' AND fecha >". $limite);
 		if($rows->count == 0) { 
-			$wpdb->query("INSERT INTO $wpdb->visitas (ip,fecha,referer,browser,os,search,host) VALUES ('$ip',$now,'$referer','$browser','$os','$search','$host')"); 
+			$wpdb->query("INSERT INTO $wpdb->visitas (ip,fecha,referer,browser,os,search,host,country) VALUES ('$ip',$now,'$referer','$browser','$os','$search','$host','$country')"); 
 		}
 	}
 	$usuarios = $wpdb->get_row("SELECT COUNT(*) AS count FROM $wpdb->visitas");
@@ -962,7 +997,7 @@ function vr_copyright($init="",$sep="",$end="") {
 	echo $copyright;
 }
 
-### Crea el Widget àra usar en la barra lateral
+### Crea el Widget para usar en la barra lateral
 
 function widget_visitas_init() {
 	// Add a widget control and enable it
