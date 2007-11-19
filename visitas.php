@@ -807,7 +807,7 @@ function vr_usuarios_totales() {
 	$ip_propia = get_option('vr_self_IP');
 	$delay = get_option('vr_delay');
 
-	list($ip, $browser, $os, $referer, $search, $host, $co, $country) = explode("@",vr_userinfo());
+	list($ip, $browser, $os, $referer, $search, $host, $country) = explode("@",vr_userinfo());
 	$now = time();
 	$limite = $now - $delay;
 	if($ip != $ip_propia) {
