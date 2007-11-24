@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: VR-Visitas
-Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas-2/
+Plugin URI: http://www.vruiz.net/2006/08/29/vr-visitas/
 Description: Registra las visitas a tu p&aacute;gina y lo muestra junto al Copyryght y la fecha de actualizaci&oacute;n.
 Version: 2.0
 Author: Vicen&ccedil; Ruiz
